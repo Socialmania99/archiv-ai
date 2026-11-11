@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Privacy policy · Archiv</title>
+<meta name="description" content="Archiv privacy policy: what the extension reads, what it stores on your device, and the one case where data leaves it.">
+<link rel="icon" href="assets/favicon.png">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="switch.css">
+<script src="theme.js"></script>
+</head>
+<body>
+<header class="nav"><div class="wrap">
+  <a class="logo" href="index.html"><img src="assets/logo.png" alt="" width="30" height="30">Archiv</a>
+  <nav aria-label="Main"><a href="index.html#features">Features</a><a href="index.html#install">Install</a><a href="index.html#faq">FAQ</a></nav>
+  <span class="sp"></span>
+  <a class="btn sm" href="index.html">← Back to site</a>
+  <span data-theme-toggle data-size="md"></span>
+</div></header>
+
+<main class="doc">
+  <h1>Privacy policy</h1>
+  <p class="meta">Effective date: 10 November 2026 · Applies to the Archiv browser extension, version 0.6 and later, and to this website.</p>
+
+  <div class="short"><b>Short version.</b> Archiv works on your device. It has no account system, no server of its own, no analytics and no advertising. We do not collect, sell or share your data.</div>
+
+  <h2>What Archiv reads</h2>
+  <p>When you export a chat (by clicking Archiv, using the <code>Alt+Shift+E</code> shortcut, the right-click menu, or the small Export button), Archiv reads the text of the conversation on the page you are viewing. On supported AI sites it also checks, on the page itself, whether a conversation is present so it can show its Export button. This check never leaves your device.</p>
+
+  <h2>What Archiv stores, and where</h2>
+  <table>
+    <thead><tr><th>Data</th><th>Where</th><th>Until</th></tr></thead>
+    <tbody>
+      <tr><td><b>Inbox copies</b>: chats you sent with “Export this chat”</td><td>Local extension storage on your computer</td><td>You Save, Export or Discard them, or the extension is removed. Combined documents are cleared at browser start.</td></tr>
+      <tr><td><b>Saved chats</b> (only after “Save to vault”), with tags, folder and “Updated” markers</td><td>Your browser’s local database (IndexedDB)</td><td>You delete them in Archiv, or remove the extension.</td></tr>
+      <tr><td><b>Settings</b>: export style, selector fixes, on/off switches</td><td>Browser storage; browsers may sync these between your signed-in browsers</td><td>You change or reset them.</td></tr>
+      <tr><td><b>Theme and sidebar choice</b></td><td>Local browser storage</td><td>You change it.</td></tr>
+      <tr><td><b>Notion connection</b> (optional): integration token, page ID, database ID</td><td>Local extension storage only; never synced</td><td>You press Disconnect.</td></tr>
+    </tbody>
+  </table>
+  <p>Duplicate detection, topic tags and search all run locally in your browser. They use no network request and no outside service.</p>
+
+  <h2>When data leaves your device</h2>
+  <p>Only in one case: you choose <b>Notion</b> as the format and press <b>Send to Notion</b>. Archiv then sends that chat’s content, directly from your browser to Notion’s API (<code>api.notion.com</code>), using your own token, to create a page or database row in your own workspace. Notion’s handling of that data is covered by Notion’s privacy policy. Archiv never sends anything to any other server.</p>
+  <p>Opening an Obsidian link copies a note to your clipboard and hands it to the Obsidian app on your computer. Nothing is uploaded.</p>
+
+  <h2>Permissions</h2>
+  <ul>
+    <li><b>activeTab and scripting</b>: read the chat on the tab you are using, only when you ask.</li>
+    <li><b>Content scripts on listed AI sites</b>: to detect a conversation and show the optional Export button.</li>
+    <li><b>storage and unlimitedStorage</b>: keep your settings and your saved chats on your device.</li>
+    <li><b>contextMenus</b>: the right-click “Export this chat with Archiv” item.</li>
+    <li><b>Optional access to api.notion.com</b>: requested only if you connect Notion.</li>
+  </ul>
+
+  <h2>Remote code</h2>
+  <p>Archiv does not download or run remote code.</p>
+
+  <h2>This website</h2>
+  <p>This site is static and hosted on GitHub Pages. It loads no analytics, no ads, no third-party fonts and no tracking scripts. It loads nothing from outside the site itself. Links to GitHub and Buy Me a Coffee load only if you click them and are then covered by those services’ own policies. The only thing the site stores is your light or dark choice, in your own browser. GitHub, as the host, may log requests under its own <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">privacy statement</a>.</p>
+
+  <h2>Logos and trademarks</h2>
+  <p>Archiv is an independent project. Product names and logos belong to their owners and are used only to identify each service.</p>
+
+  <h2>Children</h2>
+  <p>Archiv is not directed at children and collects no personal information.</p>
+
+  <h2>Changes</h2>
+  <p>If this policy changes, the new version will be published at this address with a new effective date.</p>
+
+  <h2>Donations</h2>
+  <p>Optional donations are handled entirely by <a href="https://www.buymeacoffee.com/Socialmania99" target="_blank" rel="noopener">Buy Me a Coffee</a>. Archiv never sees payment details, and neither this site nor the extension makes any request to that service by itself; the link only opens its page in a new tab if you click the support link.</p>
+
+  <h2>Contact</h2>
+  <p>Questions or concerns: open an issue on the <a data-gh="/issues" href="index.html#install" target="_blank" rel="noopener">project’s GitHub page</a>.</p>
+</main>
+
+<footer><div class="wrap"><p class="fine" style="margin:0;border:0;padding:0">© <span id="yr"></span> Archiv · <a href="index.html">Home</a></p></div></footer>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+/* Archiv design tokens: soft lavender glass, purple accent */
+:root {
+  --bg1: #eef0ff; --bg2: #f7f3ff; --panel: rgba(255, 255, 255, .78); --panel-solid: #ffffff;
+  --text: #1c1b2e; --muted: #7b7a96; --line: rgba(110, 90, 200, .14);
+  --brand: #6d4aff; --brand2: #8b5cf6; --brand-ink: #ffffff; --brand-soft: rgba(109, 74, 255, .10);
+  --ok: #059669; --warn: #b45309; --danger: #e11d48;
+  --shadow: 0 12px 40px rgba(88, 60, 200, .10);
+  --radius: 20px;
+}
+@media all {
+  :root[data-ui="dark"] {
+    --bg1: #0e0c1d; --bg2: #14112b; --panel: rgba(30, 26, 58, .72); --panel-solid: #1b1736;
+    --text: #ecebff; --muted: #9a97c0; --line: rgba(160, 150, 255, .16);
+    --brand: #8b7bff; --brand2: #a78bfa; --brand-ink: #0e0c1d; --brand-soft: rgba(139, 123, 255, .16);
+    --ok: #34d399; --warn: #fbbf24; --danger: #fb7185; --shadow: 0 12px 40px rgba(0, 0, 0, .35);
+  }
+}
+* { box-sizing: border-box; }
+html { min-height: 100%; }
+body {
+  margin: 0; color: var(--text); font: 14px/1.5 'Plus Jakarta Sans', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background:
+    radial-gradient(900px 520px at 8% -8%, rgba(139, 92, 246, .22), transparent 60%),
+    radial-gradient(800px 520px at 100% 0%, rgba(99, 102, 241, .20), transparent 60%),
+    radial-gradient(700px 600px at 60% 110%, rgba(167, 139, 250, .20), transparent 60%),
+    linear-gradient(160deg, var(--bg1), var(--bg2));
+  background-attachment: fixed;
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; border: 1px solid var(--line); background: var(--panel-solid); border-radius: 12px; padding: 8px 14px; transition: border-color .15s, transform .05s; }
+button:hover { border-color: var(--brand); }
+button:active { transform: translateY(1px); }
+button.primary { background: linear-gradient(135deg, var(--brand2), var(--brand)); color: #fff; border-color: transparent; font-weight: 600; box-shadow: 0 6px 18px rgba(109, 74, 255, .35); }
+button.danger { color: var(--danger); }
+button:disabled { opacity: .5; cursor: default; }
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+input[type=text], input[type=number], input[type=search], select, textarea { background: var(--panel-solid); border: 1px solid var(--line); border-radius: 12px; padding: 8px 11px; width: 100%; }
+label { display: block; color: var(--muted); font-size: 12px; margin: 10px 0 3px; }
+label.inline { display: flex; align-items: center; gap: 8px; color: var(--text); font-size: 13px; margin: 6px 0; }
+label.inline input { width: auto; }
+h1, h2, h3 { margin: 0; }
+.muted { color: var(--muted); }
+.small { font-size: 12px; }
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.grow { flex: 1; }
+.chip { display: inline-block; padding: 1px 9px; border-radius: 99px; background: var(--brand-soft); color: var(--brand); font-size: 12px; font-weight: 600; }
+.glass { background: var(--panel); border: 1px solid rgba(255, 255, 255, .6); border-radius: var(--radius); box-shadow: var(--shadow); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+:root[data-ui="dark"] .glass { border-color: rgba(255, 255, 255, .06); }
+.toast { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); background: var(--text); color: var(--bg1); padding: 9px 16px; border-radius: 12px; opacity: 0; transition: opacity .2s; pointer-events: none; z-index: 50; }
+.toast.show { opacity: 1; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; letter-spacing: -.02em; }
+.brand img, .brand svg { width: 30px; height: 30px; }
+
+
+/* brand tile (lib/avatar.js) */
+.av { display: inline-grid; place-items: center; flex: none; border-radius: 28%; color: #fff; font-weight: 800; overflow: hidden; vertical-align: middle; }
+.av.logo { background: #fff; border: 1px solid rgba(0, 0, 0, .08); }
+.av.logo img { width: 68%; height: 68%; object-fit: contain; display: block; }
+
+/* "Buy me a coffee" link. Plain local button: the extension loads nothing from buymeacoffee.com. */
+.bmc { display: inline-flex; align-items: center; gap: 9px; background: #000; color: #fff !important; border: 1px solid rgba(255, 255, 255, .28); border-radius: 12px; padding: 9px 18px; text-decoration: none; font: 600 18px/1 'Cookie', 'Brush Script MT', 'Segoe Script', cursive; box-shadow: 0 2px 8px rgba(0, 0, 0, .22); transition: transform .2s cubic-bezier(.2, .7, .2, 1), box-shadow .2s ease, border-color .2s ease; }
+.bmc:hover { transform: translateY(-1px); border-color: rgba(255, 255, 255, .55); box-shadow: 0 6px 16px rgba(0, 0, 0, .3); }
+.bmc:active { transform: translateY(0); }
+.bmc:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.bmc .cup { font-size: 20px; line-height: 1; display: inline-block; transition: transform .25s cubic-bezier(.2, .7, .2, 1); }
+.bmc:hover .cup { transform: rotate(-12deg) scale(1.08); }
+.bmc.sm { padding: 5px 12px; font-size: 15px; border-radius: 10px; gap: 6px; }
+.bmc.sm .cup { font-size: 16px; }
+@media (prefers-reduced-motion: reduce) { .bmc, .bmc .cup { transition: none; } .bmc:hover, .bmc:hover .cup { transform: none; } }
+.linkrow { display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: 12.5px; } .linkrow a { color: var(--muted); text-decoration: none; font-weight: 600; } .linkrow a:hover { color: var(--brand); text-decoration: underline; }

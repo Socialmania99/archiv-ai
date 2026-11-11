@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Archiv · Export</title>
+  <script src="theme.js"></script>
+  <link rel="stylesheet" href="ui.css">
+  <link rel="stylesheet" href="switch.css">
+  <link rel="stylesheet" href="export.css">
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+<div class="xshell glass">
+  <div id="sb"></div>
+  <div class="xmain">
+  <header class="top">
+    <div class="titlebox">
+      <div class="crumb muted small" id="crumb">Inbox › Export</div>
+      <h1 id="title">Loading…</h1>
+      <div class="muted" id="meta"></div>
+    </div>
+    <span class="chip" id="stChip" hidden></span>
+    <span class="grow"></span>
+    <span data-theme-toggle></span>
+  </header>
+
+  <main class="layout">
+    <aside class="side glass">
+      <div class="formats vh" id="formats">
+        <label class="fmt"><input type="radio" name="format" value="pdf"><span>PDF</span></label>
+        <label class="fmt"><input type="radio" name="format" value="docx"><span>Word</span></label>
+        <label class="fmt"><input type="radio" name="format" value="png"><span>Image</span></label>
+        <label class="fmt"><input type="radio" name="format" value="md"><span>Markdown</span></label>
+        <label class="fmt"><input type="radio" name="format" value="html"><span>HTML</span></label>
+        <label class="fmt"><input type="radio" name="format" value="json"><span>JSON</span></label>
+        <label class="fmt"><input type="radio" name="format" value="txt"><span>Text</span></label>
+        <label class="fmt"><input type="radio" name="format" value="notion"><span>Notion</span></label>
+        <label class="fmt"><input type="radio" name="format" value="obsidian"><span>Obsidian</span></label>
+      </div>
+
+      <div id="obsOpts" hidden>
+        <h3>Obsidian</h3>
+        <label>Note layout</label>
+        <select id="obStyle"><option value="callouts">Callouts (You / AI boxes)</option><option value="headings">Plain headings</option></select>
+        <label>Vault name <span class="muted">(blank = last used vault)</span></label>
+        <input type="text" id="obVault" placeholder="My Vault">
+        <label>Folder in vault</label>
+        <input type="text" id="obFolder" placeholder="AI Chats">
+      </div>
+
+      <h3>Include</h3>
+      <select id="keep">
+        <option value="both">Prompts and responses</option>
+        <option value="assistant">Only AI responses</option>
+        <option value="user">Only my prompts</option>
+      </select>
+      <div class="row" style="margin-top:8px">
+        <button id="selAll">Select all</button>
+        <button id="selNone">None</button>
+      </div>
+      <div class="muted small" id="stats"></div>
+
+      <h3>Privacy</h3>
+      <label class="inline"><input type="checkbox" id="rSecrets"> Redact API keys, tokens, passwords</label>
+      <label class="inline"><input type="checkbox" id="rEmails"> Redact email addresses</label>
+      <label class="inline"><input type="checkbox" id="rPhones"> Redact phone numbers</label>
+      <div class="redact-note" id="redactNote"></div>
+
+      <h3>Style <span class="muted small">(PDF · Word · Image · HTML)</span></h3>
+      <label>Theme <span class="muted">(PDF, Image, HTML)</span></label>
+      <div class="themes" id="themes"></div>
+      <label>Font</label>
+      <select id="font"></select>
+      <div class="row">
+        <div class="grow"><label>Size (pt)</label><input type="number" id="size" min="8" max="20" step="0.5"></div>
+        <div class="grow"><label>Text colour <span class="muted">(Light)</span></label><input type="color" id="color" style="width:100%;height:36px;padding:2px"></div>
+      </div>
+      <div class="row">
+        <div class="grow"><label>Page</label><select id="page"><option>A4</option><option>Letter</option></select></div>
+      </div>
+      <label class="inline"><input type="checkbox" id="brandPdf"> PDF: Archiv header and page numbers</label>
+      <label class="inline"><input type="checkbox" id="header"> Show source, date and link</label>
+      <label>File name</label>
+      <input type="text" id="filename">
+      <div class="muted small">Tokens: {site} {title} {date}</div>
+    </aside>
+
+    <section class="main">
+      <div class="actions glass">
+        <div class="split" id="split">
+          <button class="fmtbtn" id="fmtBtn" aria-haspopup="listbox" aria-expanded="false" title="Choose export format"><span class="fmtdot" id="fmtDot"></span><span id="fmtName">PDF</span><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+          <button class="primary" id="download">Download</button>
+          <div class="fmtmenu" id="fmtMenu" role="listbox" hidden></div>
+        </div>
+        <button id="copy">Copy Markdown</button>
+        <button id="obOpen" hidden title="Copies the note, then opens Obsidian to create it">Open in Obsidian</button>
+        <a id="notionLink" class="notionlink" href="#" target="_blank" rel="noopener" hidden>Open in Notion ↗</a>
+        <span class="grow"></span>
+        <button id="save">Save to vault</button>
+        <button id="discard" class="danger" hidden>Discard</button>
+        <button id="openLib">Back to dashboard</button>
+      </div>
+      <div class="tagrow glass-in"><span class="muted small">Tags</span><div class="tagbox" id="tagbox"></div><input type="text" id="tagIn" placeholder="add tag, press Enter" aria-label="Add tag"><input type="text" id="folder" placeholder="folder" style="max-width:130px" aria-label="Folder"></div>
+      <div class="hint muted small">Click a message header to include or exclude it. Shift-click selects a range.</div>
+      <div id="preview" class="preview"></div>
+    </section>
+  </main>
+
+  </div></div>
+  <div class="toast" id="toast"></div>
+  <script src="content/registry.js"></script>
+  <script src="content/adapters.js"></script>
+  <script src="content/icon-map.js"></script>
+  <script type="module" src="export.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+import { createRequire } from 'node:module';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import { toExportPage } from './helper.mjs';
+const { chromium } = createRequire(import.meta.url)('playwright');
+const EXT = path.resolve(new URL('..', import.meta.url).pathname);
+const ctx = await chromium.launchPersistentContext('/tmp/cv-profile-6-' + Date.now(), { channel: 'chromium', headless: true, viewport: { width: 1400, height: 900 }, args: [`--disable-extensions-except=${EXT}`, `--load-extension=${EXT}`] });
+let [sw] = ctx.serviceWorkers(); if (!sw) sw = await ctx.waitForEvent('serviceworker');
+await ctx.route('https://claude.ai/chat/9', (r) => r.fulfill({ contentType: 'text/html', body: '<!doctype html><meta charset=utf-8><title>Build a script - Claude</title><div data-testid="user-message"><p>Write a script</p></div><div class="font-claude-response"><p>Done, see the artifact.</p></div><div data-testid="artifact-title">hello.py</div><div data-testid="artifact-content"><pre><code>def hello():\n    print("hi from the artifact")</code></pre></div>' }));
+const p = await ctx.newPage(); await p.goto('https://claude.ai/chat/9'); await p.bringToFront(); await p.waitForTimeout(500);
+await sw.evaluate(async () => { const [t] = await chrome.tabs.query({ active: true, lastFocusedWindow: true }); return chrome.tabs.sendMessage(t.id, { type: 'export', autoload: false }); });
+const ep = await toExportPage(ctx);
+const txt = await ep.locator('#preview').innerText();
+assert.ok(txt.includes('Artifact: hello.py') && txt.includes('hi from the artifact'), txt);
+assert.equal(await ep.locator('.msg').count(), 3, 'user + reply + artifact');
+assert.equal(await ep.locator('#brandPdf').isChecked(), true);
+console.log('V06 E2E PASSED'); await ctx.close();

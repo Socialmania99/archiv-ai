@@ -1,0 +1,53 @@
+/* Shared sidebar: icon rail + tree panel (dashboard and export pages) */
+.sb { display: flex; align-self: stretch; position: sticky; top: 26px; max-height: calc(100vh - 52px); }
+.sb .rail { width: 64px; flex: none; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 14px 0; background: #14112b; border-radius: 22px; color: #b6b3d9; }
+:root:not([data-ui="dark"]) .sb .rail { background: #1c1840; }
+.rl { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 14px; color: #b6b3d9; position: relative; text-decoration: none; }
+.rl svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.rl:hover { background: rgba(255, 255, 255, .08); color: #fff; }
+.rl.active { background: linear-gradient(135deg, var(--brand2), var(--brand)); color: #fff; box-shadow: 0 6px 16px rgba(109, 74, 255, .45); }
+.rl.logo { margin-bottom: 10px; } .rl.logo img { width: 30px; height: 30px; }
+.rl .dot { position: absolute; top: 8px; right: 8px; width: 8px; height: 8px; border-radius: 50%; background: #fb7185; box-shadow: 0 0 0 2px #14112b; }
+
+.sb .panel { transition: width .25s cubic-bezier(.2, .7, .2, 1), opacity .18s ease, margin .25s ease, padding .25s ease; white-space: nowrap; width: 250px; margin-left: 10px; padding: 14px 12px; display: flex; flex-direction: column; gap: 6px; background: var(--panel-solid); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; }
+.sb.collapsed .panel { width: 0; margin-left: 0; padding-left: 0; padding-right: 0; opacity: 0; border-width: 0; pointer-events: none; }
+.phead { display: flex; align-items: center; justify-content: space-between; padding: 2px 6px 10px; }
+.phead h2 { font-size: 18px; letter-spacing: -.01em; }
+.collapse { width: 32px; height: 32px; padding: 0; display: grid; place-items: center; border-radius: 10px; color: var(--muted); }
+.collapse svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.ptree { overflow: auto; flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 2px; }
+.sg-h { width: 100%; display: flex; align-items: center; gap: 10px; background: none; border: 0; border-radius: 12px; padding: 9px 10px; color: var(--text); font-weight: 600; text-align: left; }
+.sg-h:hover { background: var(--brand-soft); }
+.sg.open > .sg-h { background: var(--brand-soft); }
+.sg-h .ic { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; color: var(--muted); }
+.sg-h span { flex: 1; }
+.sg-h .chev { width: 15px; height: 15px; fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .15s; }
+.sg.open > .sg-h .chev { transform: rotate(90deg); }
+.sg-b { display: none; flex-direction: column; gap: 1px; margin: 3px 0 6px 18px; padding-left: 10px; border-left: 1px solid var(--line); }
+.sg.open > .sg-b { display: flex; }
+.si { display: flex; align-items: center; gap: 9px; padding: 7px 10px; border-radius: 10px; color: var(--muted); text-decoration: none; font-size: 13.5px; font-weight: 500; position: relative; }
+.si .ic { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.si span.grow { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.si:hover { color: var(--text); background: var(--brand-soft); }
+.si.active { color: var(--text); font-weight: 700; background: var(--brand-soft); }
+.si.active::before { content: ''; position: absolute; left: -11px; top: 6px; bottom: 6px; width: 3px; border-radius: 3px; background: var(--brand); }
+.bdg { font-style: normal; font-size: 11px; font-weight: 700; color: var(--brand); background: var(--brand-soft); border-radius: 99px; padding: 0 7px; min-width: 20px; text-align: center; }
+.sb .promo { margin-top: 8px; padding: 14px; } .sb .promo h3 { margin-top: 10px; font-size: 15px; } .sb .promo-art { display: none; }
+@media (max-width: 900px) { .sb .panel { display: none; } }
+
+/* small expand / contract toggle on the rail */
+.sb { position: sticky; }
+.sbtoggle { width: 28px; height: 28px; padding: 0; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 255, 255, .1); border: 0; color: #d8d6f2; margin: -2px 0 6px; }
+.sbtoggle:hover { background: var(--brand); color: #fff; }
+.sbtoggle svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transition: transform .25s ease; }
+.sb.collapsed .sbtoggle svg { transform: rotate(180deg); }
+.sg-b { animation: none; } .sg.open > .sg-b { animation: fade .18s ease both; }
+.si, .rl { transition: background .15s, color .15s; }
+@media (max-width: 900px) { .sb .panel { display: none; } }
+
+.sb .promo { border-radius: 18px; color: #fff; position: relative; overflow: hidden; white-space: normal; flex: none;
+  background: radial-gradient(circle at 85% 0%, rgba(255, 150, 90, .45), transparent 45%), linear-gradient(160deg, #1d1450, #3b22b8 60%, #5b37f0); }
+.sb .promo h3 { margin: 0 0 2px; font-size: 15px; } .sb .promo p { margin: 0 0 10px; font-size: 12px; opacity: .78; }
+.sb .promo button { width: 100%; background: rgba(255, 255, 255, .14); color: #fff; border: 1px solid rgba(255, 255, 255, .25); display: flex; justify-content: space-between; border-radius: 99px; padding: 8px 14px; }
+
+.sb-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; } .sb-foot .gh { color: var(--muted); font-size: 12.5px; font-weight: 600; text-decoration: none; } .sb-foot .gh:hover { color: var(--brand); }

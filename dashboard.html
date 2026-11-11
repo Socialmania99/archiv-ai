@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Archiv · Dashboard</title>
+  <script src="theme.js"></script>
+  <link rel="stylesheet" href="ui.css">
+  <link rel="stylesheet" href="switch.css">
+  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+<div class="shell glass">
+
+  <div id="sb"></div>
+
+  <main class="content">
+    <header class="topbar">
+      <div class="date" id="today"></div>
+      <div class="search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="globalSearch" placeholder="Search every saved chat…" aria-label="Search saved chats">
+        <button id="searchGo" class="swap" title="Open in Library" aria-label="Open results in Library">⇄</button>
+      </div>
+      <span class="pill-local" title="No account, no server, no tracking"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>100% on-device</span>
+      <span data-theme-toggle></span>
+    </header>
+
+    <!-- ===== Dashboard ===== -->
+    <section id="view-dashboard" class="view">
+      <div class="dgrid">
+        <div class="left">
+          <div class="statrow">
+            <div class="stat glass-in">
+              <div class="stat-l"><div class="lbl">Chats saved</div><div class="val" id="sChats">0</div><div class="delta" id="sChatsD"></div></div>
+              <div class="bars" id="sChatsBars"></div>
+            </div>
+            <div class="stat glass-in">
+              <div class="stat-l"><div class="lbl">Words archived</div><div class="val" id="sWords">0</div><div class="delta" id="sWordsD"></div></div>
+              <div class="bars" id="sWordsBars"></div>
+            </div>
+          </div>
+
+          <div class="hero" id="hero">
+            <div class="hero-top">
+              <div class="hero-title">Activity</div>
+              <select id="period" aria-label="Period"><option value="monthly">Monthly</option><option value="weekly">Weekly</option></select>
+            </div>
+            <div class="hero-num">
+              <span class="pill-today">◷ Today</span>
+              <div class="big"><span id="heroNum">0</span><small>saved</small></div>
+              <div class="hero-sub" id="heroSub"></div>
+            </div>
+            <div class="chart" id="chart"></div>
+          </div>
+
+          <div class="sectionhead"><h2>Recently saved</h2><a href="#library" class="link">View all</a></div>
+          <div id="recent" class="recent"></div>
+        </div>
+
+        <aside class="right glass-in">
+          <div class="sectionhead">
+            <h2>Quick find</h2>
+            <div class="menuwrap"><button class="more" id="moreBtn" aria-label="Open a supported site">⋮</button>
+              <div class="menu" id="siteMenu" hidden></div></div>
+          </div>
+          <div class="qf-search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input type="search" id="qf" placeholder="Search chats"><button class="plus" id="plusBtn" title="Open a supported site" aria-label="Open a supported site">+</button></div>
+          <div id="qfList" class="qflist"></div>
+
+          <div class="sectionhead" style="margin-top:22px"><h2>Your folders</h2><a href="#folders" class="link">View all</a></div>
+          <div id="foldersMini" class="foldersmini"></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===== Inbox ===== -->
+    <section id="view-inbox" class="view" hidden>
+      <div class="sectionhead"><h2>Inbox</h2><span class="muted" id="inboxCount"></span></div>
+      <p class="muted small">Chats you sent from the extension land here as a recent copy. Save to the vault, export, or discard. Nothing is stored until you save.</p>
+      <div id="inboxList" class="inbox"></div>
+    </section>
+
+    <!-- ===== Library ===== -->
+    <section id="view-library" class="view" hidden>
+      <div class="sectionhead"><h2>Library</h2><span class="muted" id="libCount"></span></div>
+      <div class="toolbar">
+        <input type="search" id="q" placeholder="Search every saved chat…">
+        <select id="site"><option value="">All sites</option></select>
+        <select id="folder"><option value="">All folders</option></select>
+      </div>
+      <div class="toolbar">
+        <button id="mergeBtn" class="primary" disabled>Export combined (0)</button>
+        <button id="selVisible">Select shown</button>
+        <button id="selClear">Clear</button>
+        <span class="grow"></span>
+        <div class="menuwrap xfer">
+          <button id="xferBtn" aria-haspopup="menu" aria-expanded="false" title="Backup, import and export"><svg viewBox="0 0 24 24"><path d="M7 4v13M3.5 13.5 7 17l3.5-3.5"/><path d="M17 20V7M13.5 10.5 17 7l3.5 3.5"/></svg>Backup &amp; transfer<svg class="chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="menu xmenu" id="xferMenu" role="menu" hidden>
+            <button id="backup" role="menuitem"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 19h14"/></svg><span><b>Backup JSON</b><small>Everything, to re-import later</small></span></button>
+            <button id="import" role="menuitem"><svg viewBox="0 0 24 24"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M5 19h14"/></svg><span><b>Import JSON</b><small>Restore from a backup file</small></span></button>
+            <div class="msep"></div>
+            <button id="zipAll" role="menuitem"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M10 11h4M10 15h4"/></svg><span><b>ZIP of Markdown</b><small>One .md file per chat</small></span></button>
+            <button id="zipObs" role="menuitem" title="Notes with frontmatter and tags, one subfolder per library folder"><svg viewBox="0 0 24 24"><path d="M12 2 5 8l-1 8 6 6 8-3 2-9z"/><path d="m12 2 3 10-5 10"/></svg><span><b>ZIP for Obsidian</b><small>Notes with tags and folders</small></span></button>
+          </div>
+        </div>
+        <input type="file" id="file" accept="application/json" hidden>
+      </div>
+      <div id="tags" class="tagbar"></div>
+      <div id="list" class="list"></div>
+    </section>
+
+    <!-- ===== Folders ===== -->
+    <section id="view-folders" class="view" hidden>
+      <div class="sectionhead"><h2>Folders</h2></div>
+      <div id="foldersAll" class="foldersall"></div>
+    </section>
+
+    <!-- ===== Sites ===== -->
+    <section id="view-sites" class="view" hidden>
+      <div class="sectionhead"><h2>Supported sites</h2><span class="muted small" id="siteCount"></span></div>
+      <p class="muted">Open a chat on any listed site, then click the Archiv icon, press Alt+Shift+E, or use the small round button Archiv adds to the page. <b>Any other chat page works too</b>: click the icon and, if needed, <b>Teach Archiv</b>.</p>
+      <div class="sitefilters">
+        <input type="search" id="siteSearch" placeholder="Search 230+ AI tools…" aria-label="Search AI tools">
+        <select id="siteCat" aria-label="Category"></select>
+        <select id="siteTier" aria-label="Status">
+          <option value="">All statuses</option><option value="selectors">Built-in selectors</option><option value="web">Auto-detect / Teach</option><option value="local">Self-hosted</option><option value="via">Via another site</option><option value="app">Not a web page</option>
+        </select>
+      </div>
+      <p class="muted small legend"><b>Built-in selectors</b>: written for that site, not yet checked on a live account. <b>Auto-detect / Teach</b>: Archiv finds the turns itself; use Teach Archiv if it misses. <b>Not a web page</b>: IDE plugins, terminals, desktop and mobile apps have nothing in a browser tab to read.</p>
+      <div id="sitesAll" class="sitesall"></div>
+    </section>
+
+    <!-- ===== Settings ===== -->
+    <section id="view-settings" class="view" hidden>
+      <div class="sectionhead"><h2>Settings</h2></div>
+      <div class="settings">
+        <div class="card glass-in"><h3>Storage</h3><p class="muted" id="storageInfo">Calculating…</p>
+          <p class="muted small">Chats are kept unredacted in this browser's IndexedDB so you can re-export them with different privacy settings. Nothing is uploaded anywhere.</p></div>
+        <div class="card glass-in"><h3>Sample chats</h3>
+          <p class="muted">Add example chats to explore the dashboard, then remove them in one click.</p>
+          <div class="row"><button id="addSamples">Add sample chats</button><button id="rmSamples">Remove samples</button></div></div>
+        <div class="card glass-in" id="notionCard"><h3>Notion</h3>
+          <p class="muted small">Send chats straight into a Notion page. 1) Create an <b>internal integration</b> at notion.so/my-integrations and copy its secret. 2) Open the page where chats should go, click <b>••• › Connections</b>, add your integration. 3) Paste both below. The token stays in this browser only.</p>
+          <details class="guide" id="notionGuide">
+          <summary>Beginner guide: connect Notion step by step</summary>
+          <ol>
+            <li><b>Have a Notion account.</b> Free is fine. Sign in at <a href="https://www.notion.so" target="_blank" rel="noopener">notion.so</a>.</li>
+            <li><b>Make a page to hold your chats.</b> In Notion click <b>+ New page</b> in the sidebar, name it <i>AI Chats</i>. Leave it empty.</li>
+            <li><b>Create an integration</b> (a key that lets Archiv write). Open <a href="https://www.notion.so/profile/integrations" target="_blank" rel="noopener">notion.so/profile/integrations</a> (older link: notion.so/my-integrations). Click <b>New integration</b>, name it <i>Archiv</i>, pick your workspace, type <b>Internal</b>, then <b>Save</b>.</li>
+            <li><b>Allow it to write.</b> On the integration's <b>Capabilities</b> tab keep <b>Read content</b>, <b>Insert content</b> and <b>Update content</b> ticked.</li>
+            <li><b>Copy the secret.</b> On the <b>Configuration</b> tab click <b>Show</b> then <b>Copy</b> next to <i>Internal Integration Secret</i>. It starts with <code>ntn_</code> or <code>secret_</code>. Treat it like a password.</li>
+            <li><b>Share the page with the integration.</b> Open your <i>AI Chats</i> page, click <b>•••</b> (top right) › <b>Connections</b> › search <i>Archiv</i> › <b>Confirm</b>. Skip this and Notion answers “object not found”.</li>
+            <li><b>Copy the page link.</b> On that page click <b>Share</b> › <b>Copy link</b>.</li>
+            <li><b>Paste both below.</b> Secret into <i>Integration secret</i>, link into <i>Parent page link or ID</i>.</li>
+            <li><b>Choose how chats are saved.</b> <i>Separate pages</i>: each chat is a sub-page. <i>Rows in a database</i>: Archiv creates a table <i>Archiv chats</i> with Site, Tags, Date, Messages and URL columns.</li>
+            <li><b>Click Connect and test.</b> Your browser asks permission to reach api.notion.com: click <b>Allow</b>. Status turns to “Connected to …”.</li>
+            <li><b>Send a chat.</b> Open a chat, click Archiv › <b>Export this chat</b> › in the Inbox click <b>Export…</b>, pick <b>Notion</b> in the format menu, then <b>Send to Notion</b>. Click <b>Open in Notion</b> when done.</li>
+          </ol>
+          <p class="muted small"><b>Problems?</b> “Could not find page / Connections”: redo step 6. “Token”/401: copy the secret again (step 5). Nothing happens on Allow: click Connect again. Your secret stays in this browser; it is never synced or sent anywhere except api.notion.com. Disconnect any time with the button below and delete the integration in Notion to revoke it fully.</p>
+        </details>
+        <label>Integration secret</label><input type="password" id="nToken" placeholder="ntn_… or secret_…" autocomplete="off">
+          <label>Parent page link or ID</label><input type="text" id="nPage" placeholder="https://www.notion.so/My-page-0123…">
+          <label>Send chats as</label><select id="nMode"><option value="page">Separate pages under that page</option><option value="database">Rows in a database (site, tags, date, messages, link)</option></select>
+          <div class="row" style="margin-top:8px"><button class="primary" id="nSave">Connect and test</button><button id="nClear">Disconnect</button></div>
+          <div class="muted small" id="nStatus" role="status"></div></div>
+        <div class="card glass-in"><h3>In-page button</h3><p class="muted">The small round Export button Archiv adds to known AI sites.</p><label class="inline"><input type="checkbox" id="floatBtn"> Show it on AI sites</label></div>
+        <div class="card glass-in"><h3>Selector fixes</h3><p class="muted">Custom selectors you saved from the popup.</p><div id="overrides"></div></div>
+        <div class="card glass-in" id="aboutCard"><h3>About &amp; support</h3>
+          <p class="muted">Archiv is free, open source and made by one person. If it saves you time, you can support it.</p>
+          <p><a class="bmc" href="https://www.buymeacoffee.com/Socialmania99" target="_blank" rel="noopener"><span class="cup" aria-hidden="true">☕</span>Buy me a coffee</a></p>
+          <div class="linkrow"><a href="https://github.com/socialmania99/archiv" target="_blank" rel="noopener">GitHub</a><a href="https://github.com/socialmania99/archiv/issues" target="_blank" rel="noopener">Report an issue</a><a href="https://github.com/socialmania99/archiv/releases" target="_blank" rel="noopener">Releases</a><a href="https://socialmania99.github.io/archiv/" target="_blank" rel="noopener">Website</a><a href="https://socialmania99.github.io/archiv/privacy.html" target="_blank" rel="noopener">Privacy policy</a></div>
+          <p class="muted small" id="ver"></p></div>
+        <div class="card glass-in"><h3>Danger zone</h3><p class="muted">Delete every saved chat from this browser. This cannot be undone.</p><button id="wipe" class="danger">Delete all saved chats</button></div>
+      </div>
+    </section>
+  </main>
+</div>
+<div class="toast" id="toast"></div>
+<script src="content/registry.js"></script>
+<script src="content/adapters.js"></script>
+<script src="content/icon-map.js"></script>
+<script type="module" src="dashboard.js"></script>
+</body>
+</html>

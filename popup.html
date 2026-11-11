@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archiv</title>
+  <script src="theme.js"></script>
+  <link rel="stylesheet" href="ui.css">
+  <link rel="stylesheet" href="switch.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="head">
+    <div class="brand"><img src="icons/128.png" alt="">Archiv</div>
+    <span class="pill"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>On-device</span>
+    <span data-theme-toggle></span>
+  </header>
+
+  <section class="hero" id="hero">
+    <div class="site">
+      <div class="avatar" id="avatar">?</div>
+      <div class="sitetxt">
+        <div class="sname" id="sname">Checking this tab…</div>
+        <div class="stitle" id="stitle"></div>
+      </div>
+    </div>
+    <div class="count"><b id="count">–</b><span id="countLbl">messages</span></div>
+    <div class="tags" id="tags"></div>
+  </section>
+
+  <p id="status" class="note" role="status"></p>
+
+  <button id="export" class="primary big" disabled>Export this chat</button>
+  <label class="inline"><input type="checkbox" id="autoload" checked> Load full history first (scrolls up)</label>
+
+  <div class="two">
+    <button id="teach" disabled title="Click one of your messages and one AI reply so Archiv learns this site">Teach Archiv</button>
+    <button id="library">Dashboard</button>
+  </div>
+
+  <details id="fix">
+    <summary>Messages not found? Fix selectors</summary>
+    <label>User message CSS selector</label>
+    <textarea id="selUser" placeholder="e.g. [data-testid=user-message]"></textarea>
+    <label>AI response CSS selector</label>
+    <textarea id="selAsst" placeholder="e.g. .font-claude-response"></textarea>
+    <div class="row" style="margin-top:8px">
+      <button id="saveSel">Save</button>
+      <button id="resetSel">Reset</button>
+    </div>
+  </details>
+  <div class="foot"><a class="bmc sm" href="https://www.buymeacoffee.com/Socialmania99" target="_blank" rel="noopener"><span class="cup" aria-hidden="true">☕</span>Buy me a coffee</a><a href="https://github.com/socialmania99/archiv" target="_blank" rel="noopener">GitHub</a></div>
+  <div class="kbd">Alt+Shift+E · or right-click the page › Export this chat</div>
+  <script src="content/icon-map.js"></script>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

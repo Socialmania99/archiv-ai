@@ -1,0 +1,104 @@
+{
+  "manifest_version": 3,
+  "name": "Archiv: AI Chat Exporter & Library",
+  "version": "0.6.0",
+  "description": "Save AI chats as PDF, Word, PNG, Markdown, Notion or Obsidian. Private and on-device. Works on any chat page.",
+  "minimum_chrome_version": "110",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Archiv"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": [
+    "storage",
+    "unlimitedStorage",
+    "activeTab",
+    "scripting",
+    "contextMenus"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://chat.openai.com/*",
+        "https://gemini.google.com/*",
+        "https://copilot.microsoft.com/*",
+        "https://claude.ai/*",
+        "https://www.meta.ai/*",
+        "https://meta.ai/*",
+        "https://chat.deepseek.com/*",
+        "https://grok.com/*",
+        "https://chat.mistral.ai/*",
+        "https://poe.com/*",
+        "https://you.com/*",
+        "https://pi.ai/*",
+        "https://huggingface.co/chat*",
+        "https://duck.ai/*",
+        "https://lmarena.ai/*",
+        "https://chat.lmsys.org/*",
+        "https://www.genspark.ai/*",
+        "https://giga.chat/*",
+        "https://www.doubao.com/*",
+        "https://www.kimi.com/*",
+        "https://kimi.com/*",
+        "https://kimi.moonshot.cn/*",
+        "https://yiyan.baidu.com/*",
+        "https://ernie.baidu.com/*",
+        "https://hunyuan.tencent.com/*",
+        "https://chatglm.cn/*",
+        "https://chat.z.ai/*",
+        "https://yuewen.cn/*",
+        "https://www.stepfun.com/*",
+        "https://alice.yandex.ru/*",
+        "https://kanana.kakao.com/*",
+        "https://xinghuo.xfyun.cn/*",
+        "https://github.com/copilot*",
+        "https://www.google.com/search*",
+        "https://aistudio.google.com/*",
+        "https://yuanbao.tencent.com/*",
+        "https://chat.qwen.ai/*",
+        "https://devv.ai/*",
+        "https://www.phind.com/*",
+        "https://phind.com/*",
+        "https://manus.im/*",
+        "https://v0.dev/*",
+        "https://v0.app/*",
+        "https://bolt.new/*",
+        "https://lovable.dev/*",
+        "https://www.blackbox.ai/*",
+        "https://www.perplexity.ai/*",
+        "https://perplexity.ai/*",
+        "https://notebooklm.google.com/*",
+        "https://felo.ai/*",
+        "https://character.ai/*",
+        "https://beta.character.ai/*"
+      ],
+      "js": [
+        "content/registry.js",
+        "content/adapters.js",
+        "content/md.js",
+        "content/content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "commands": {
+    "export-full": {
+      "suggested_key": {
+        "default": "Alt+Shift+E"
+      },
+      "description": "Export the current AI chat"
+    }
+  },
+  "icons": {
+    "16": "icons/16.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  },
+  "optional_host_permissions": [
+    "https://api.notion.com/*"
+  ]
+}

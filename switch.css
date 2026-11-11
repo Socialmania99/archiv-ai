@@ -1,0 +1,34 @@
+/* Neumorphic sun/moon switch. Light: orange knob with a sun on the left of a soft inset track.
+   Dark: blue knob with a moon on the right of a navy track. Reads the theme from :root[data-ui];
+   the real control is a focusable checkbox (role=switch). Scaled with --s so it fits any header. */
+.tsw-host { --s: .68; display: inline-block; flex: none; width: calc(100px * var(--s)); height: calc(52px * var(--s)); position: relative; }
+.tsw-host[data-size="md"] { --s: .8; }
+.tsw {
+  position: absolute; top: 0; left: 0; width: 100px; height: 52px; margin: 0; padding: 0; box-sizing: border-box;
+  transform: scale(var(--s)); transform-origin: 0 0; border-radius: 26px; cursor: pointer; isolation: isolate;
+  background: #d9dde8;
+  box-shadow: inset 4px 4px 9px rgba(120, 130, 160, .45), inset -4px -4px 8px rgba(255, 255, 255, .9), 0 0 0 3px #f6f7fb, 0 1px 3px rgba(0, 0, 0, .08);
+  transition: background .4s ease, box-shadow .4s ease; -webkit-tap-highlight-color: transparent; user-select: none;
+}
+:root[data-ui="dark"] .tsw { background: #27325c; box-shadow: inset 5px 5px 10px rgba(8, 12, 32, .75), inset -4px -4px 8px rgba(70, 90, 150, .28), 0 0 0 3px #3c4a7a, 0 1px 3px rgba(0, 0, 0, .3); }
+.tsw input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; z-index: 3; }
+.tsw input:focus-visible ~ .knob { outline: 3px solid var(--brand, #6d4aff); outline-offset: 3px; }
+.tsw .ic { position: absolute; top: 50%; width: 22px; height: 22px; margin-top: -11px; fill: none; stroke: #aab0c2; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; z-index: 0; transition: stroke .4s ease; }
+.tsw .ic.sun { left: 15px; } .tsw .ic.moon { right: 15px; }
+:root[data-ui="dark"] .tsw .ic { stroke: #6b7599; }
+.tsw .knob {
+  position: absolute; top: 5px; left: 5px; width: 42px; height: 42px; border-radius: 50%; z-index: 1; display: grid; place-items: center;
+  background: radial-gradient(circle at 35% 28%, #ffb938 0%, #ff9300 55%, #f07f00 100%);
+  box-shadow: 0 5px 10px rgba(240, 127, 0, .45), 0 1px 2px rgba(0, 0, 0, .25), inset 0 -3px 5px rgba(190, 90, 0, .35), inset 0 2px 3px rgba(255, 230, 170, .6);
+  transition: left .4s cubic-bezier(.5, 0, .2, 1), background .4s ease, box-shadow .4s ease;
+}
+:root[data-ui="dark"] .tsw .knob {
+  left: 53px;
+  background: radial-gradient(circle at 35% 28%, #7aa0ff 0%, #4b72f0 55%, #3a5ed6 100%);
+  box-shadow: 0 5px 10px rgba(20, 40, 140, .55), 0 1px 2px rgba(0, 0, 0, .35), inset 0 -3px 5px rgba(20, 40, 150, .4), inset 0 2px 3px rgba(190, 210, 255, .55);
+}
+.tsw .knob svg { position: absolute; width: 24px; height: 24px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: opacity .3s ease, transform .4s cubic-bezier(.5, 0, .2, 1); }
+.tsw .knob .k-moon { opacity: 0; transform: rotate(-40deg) scale(.6); }
+:root[data-ui="dark"] .tsw .knob .k-sun { opacity: 0; transform: rotate(40deg) scale(.6); }
+:root[data-ui="dark"] .tsw .knob .k-moon { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .tsw, .tsw *, .tsw *::before, .tsw *::after { transition: none !important; } }

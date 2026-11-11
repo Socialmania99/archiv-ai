@@ -1,0 +1,235 @@
+ChatGPT
+Google Gemini
+Microsoft Copilot
+Claude
+Meta AI
+DeepSeek
+Grok
+Le Chat (Mistral)
+Poe
+YouChat
+Pi
+Chatsonic
+HuggingChat
+Duck.ai
+LMArena (Chatbot Arena)
+Genspark AI Chat
+DeepAI Chat
+GigaChat
+Doubao
+Kimi
+Ernie Bot
+Tencent Hunyuan
+ChatGLM (Z.ai)
+Yi Chat (01.AI)
+StepChat
+HKChat
+Leo (Brave Browser)
+Alice (Yandex)
+Kanana (formerly Kakao)
+iFlytek Spark
+GitHub Copilot Chat
+Cursor AI
+Windsurf
+Codeium
+Tabnine Chat
+Amazon Q
+Devv AI
+Phind
+Aider
+Continue.dev
+Open Interpreter
+Pieces for Developers
+Replit Agent
+Devin
+Manus
+Vercel v0
+Bolt.new
+Lovable.dev
+Bito AI
+Sourcegraph Cody
+MutableAI
+Blackbox AI
+Refact.ai
+Sweep AI
+Kito AI
+Supermaven
+CodiumAI
+Double.bot
+Anysphere
+CodeRabbit
+Perplexity AI
+NotebookLM
+Elicit
+Consensus
+Scite.ai
+ResearchRabbit
+QuillBot
+Liner
+Felo AI
+Comet (Browser Agent)
+Afforai
+SciSpace
+ChatDOC
+PDF.ai
+Humata AI
+Explainpaper
+Scholarcy
+Genei
+Keenious
+Iris.ai
+LM Studio
+Jan AI
+Ollama
+Open WebUI
+LibreChat
+AnythingLLM
+GPT4All
+PrivateGPT
+Big-AGI
+SillyTavern
+Text Generation WebUI (Oobabooga)
+Llamafile
+KoboldCPP
+Msty
+Amuse Wiki AI
+Jasper Chat
+Copy.ai
+Writesonic
+Anyword
+Rytr
+TextCortex
+Hypotenuse AI
+Simplified AI
+HIX.AI
+Writer Corporate Chat
+Monica AI
+ContentShake
+Frase.io
+Surfer SEO AI
+Wordtune
+Sudowrite
+Scalenut
+Copysmith
+Peppertype.ai
+Smartwriter.ai
+Notion AI
+Zapier AI Actions
+n8n
+Flowise
+Langflow
+Lindy
+Superhuman AI
+Julius AI
+Quivr
+Taskade AI
+Coda AI
+ClickUp Brain
+Sunsama AI
+BeforeSunset AI
+Motion AI
+Granola AI
+Hezel AI
+Xembly
+Fireflies.ai
+Otter.ai
+Midjourney
+DALL-E 3
+Stable Diffusion (Stability AI)
+Flux (Black Forest Labs)
+Adobe Firefly
+Canva Magic Studio
+Recraft
+Krea AI
+Nano Banana
+Leonardo.ai
+Playground AI
+NightCafe Creator
+Artbreeder
+Runway Gen-2 (Images)
+Photoroom
+Clipdrop
+Craiyon
+Deep Dream Generator
+VanceAI
+Picsart AI
+Runway Gen-3 / Veo 3
+Sora 2
+Kling AI
+Luma Dream Machine
+Pika Labs
+HeyGen
+Synthesia
+Colossyan
+InVideo AI
+VEED.io
+CapCut AI
+Gamma App
+Napkin AI
+Pictory
+DeepBrain AI
+Elai.io
+D-ID Agents
+Tavus
+Higgsfield
+PixVerse
+ElevenLabs
+Murf AI
+Suno AI
+Udio
+Whisper (OpenAI)
+Adobe Podcast Enhance
+Resemble.ai
+Play.ht
+Lovo.ai
+Speechify
+WellSaid Labs
+Descript
+Vapi.ai
+Retell AI
+Bland AI
+F5-TTS
+Bark
+MusicGen (Audiocraft)
+VoiceMods
+Soundraw
+Intercom Fin
+Zendesk AI Agents
+Ada
+1mind (formerly Drift)
+ServiceNow Now Assist
+Salesforce Einstein Copilot
+HubSpot Breeze
+IBM watsonx Assistant
+ManyChat
+Typeface
+Bold360
+Flow XO
+Hyro
+MobileMonkey
+Pandorabots
+SmartLoop
+Freshdesk Chatbot
+Cresta AI
+Gorgias AI
+Yellow.ai
+Character.ai
+Replika
+Kindroid
+Nomi.ai
+Candy AI
+Lovescape
+Nectar AI
+Gay AI Boyfriend
+Chai App
+Paradot
+NovelAI
+AIDungeon
+Inworld AI
+Convai
+Snapchat My AI
+Youper
+Cleo
+FitnessAI
+ELSA Speak
+Khanmigo
