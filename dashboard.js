@@ -182,6 +182,8 @@ function ringSvg(frac, label) {
 }
 
 /* ---------- dashboard ---------- */
+/** messages with copy-button noise removed (chats saved by older versions may contain it) */
+const cleanMsgs = (c) => c.messages.map((m) => (m.role === 'section' ? m : { ...m, markdown: globalThis.CV.scrubUi(m.markdown) }));
 const REDUCE = matchMedia('(prefers-reduced-motion: reduce)');
 const dayLabel = (i, n) => { const d = new Date(); d.setDate(d.getDate() - (n - 1 - i)); return d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' }); };
 // One shared tooltip per bar chart. The number counts up from 0 to that day's real value when a bar is
@@ -513,7 +515,7 @@ document.addEventListener('click', async (e) => {
       let n = (dir ? dir + '/' : '') + safeNoteName(`${c.title} (${c.siteName})`);
       for (let k = 2; used.has(n.toLowerCase()); k++) n = n.replace(/( \(\d+\))?$/, ` (${k})`);
       used.add(n.toLowerCase());
-      return { name: n + '.md', data: toObsidianDoc(c, c.messages, { tags: c.tags || [] }) };
+      return { name: n + '.md', data: toObsidianDoc(c, cleanMsgs(c), { tags: c.tags || [] }) };
     });
     if (!files.length) return toast('Nothing saved yet');
     return download(zip(files), 'archiv-ai-obsidian-notes.zip');
@@ -525,7 +527,7 @@ document.addEventListener('click', async (e) => {
       const base = (c.folder ? safeFilename(c.folder) + '/' : '') + safeFilename(c.title);
       let n = base, k = 2; while (used.has(n)) n = base + ' (' + k++ + ')';
       used.add(n);
-      return { name: n + '.md', data: toMarkdownDoc(c, c.messages) };
+      return { name: n + '.md', data: toMarkdownDoc(c, cleanMsgs(c)) };
     });
     return download(zip(files), 'archiv-ai-library.zip');
   }

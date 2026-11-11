@@ -120,6 +120,7 @@ Pro tier (cloud-free): unlimited PDF themes, branded headers. Branded PDF header
 - **Branded PDF**: logo, source, and "Page n of N" via print margin boxes (Chrome 131+; light theme).
 
 ### v0.6 latest
+- Exports no longer include the site's copy-button text or toast ("Copied to clipboard", "Failed to copy…"). Older saved chats are cleaned when exported.
 - New neumorphic sun/moon switch (top-right on every page and the website), shared `theme.js` + `switch.css`.
 - "Buy me a coffee" button: black with a hairline white border, local (no remote image), same everywhere.
 - Hover a bar in Chats saved / Words archived: real per-day count-up (keyboard focus and tap work too). Activity card line traces itself on hover.

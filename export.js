@@ -67,7 +67,7 @@ function currentView() {
   const hits = {};
   const msgs = pickMessages(conv, settings.keep, selected).map((m) => {
     if (m.role === 'section') return m;
-    const r = redact(m.markdown, opts);
+    const r = redact(globalThis.CV.scrubUi(m.markdown), opts);
     Object.entries(r.hits).forEach(([k, v]) => { hits[k] = (hits[k] || 0) + v; });
     return { ...m, markdown: r.text };
   });
