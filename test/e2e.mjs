@@ -206,7 +206,7 @@ async function exportFrom(url, autoload = true) {
   assert.deepEqual(errs, []);
 }
 
-// ---------- v0.3: new platforms, auto-detect, Teach Archiv ----------
+// ---------- v0.3: new platforms, auto-detect, Teach Archiv AI ----------
 {
   const mk = (title, u, a) => `<!doctype html><title>${title}</title><body><main>${u}${a}</main></body>`;
   const sites = {
@@ -243,7 +243,7 @@ async function exportFrom(url, autoload = true) {
     console.log('auto-detect ok');
   }
 
-  // Teach Archiv: opaque markup, user clicks one message of each kind
+  // Teach Archiv AI: opaque markup, user clicks one message of each kind
   const opaque = mk('Opaque - Claude', '<div class="turn mine">one</div><div class="turn mine">three</div>', '<div class="turn bot">two</div><div class="turn bot">four</div>');
   await ctx.route('https://claude.ai/chat/opaque', (r) => r.fulfill({ contentType: 'text/html', body: opaque.replace('<main>', '<main>').replace(/<div class="turn mine">one<\/div>/, '<div class="turn mine">one</div>') }));
   {

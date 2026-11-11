@@ -1,14 +1,14 @@
-# Archiv changelog and notes
+# Archiv AI changelog and notes
 
 Save chats from 15 AI platforms to PDF, Word, PNG, Markdown, HTML, JSON or text. Secrets are redacted before export. A private, searchable vault keeps every chat. Nothing leaves your device.
 
-**Name:** Archiv is German for "archive": a private archive of the AI conversations worth keeping. Earlier names: ChatVault (used by several store listings) and Cairn (a studio already ships "Cairn Guard" for AI chats).
+**Name:** Archiv AI: "Archiv" is German for "archive". It is a private archive of the AI conversations worth keeping. Earlier names: ChatVault (used by several store listings) and Cairn (a studio already ships "Cairn Guard" for AI chats).
 
 ## Install (developer mode)
 1. Unzip. Open `chrome://extensions`, turn on Developer mode.
-2. **Load unpacked**, pick the `archiv` folder.
+2. **Load unpacked**, pick the `archiv-ai` folder.
 3. Open a chat on a supported site and **reload that tab once**.
-4. Click the Archiv icon, then **Export this chat**, or press Alt+Shift+E.
+4. Click the Archiv AI icon, then **Export this chat**, or press Alt+Shift+E.
 5. Click **Open dashboard** in the popup. Use **Settings → Add sample chats** to see the dashboard filled in.
 
 ## What's new in v0.5
@@ -16,27 +16,27 @@ Save chats from 15 AI platforms to PDF, Word, PNG, Markdown, HTML, JSON or text.
 - **Obsidian export.** Notes with YAML frontmatter (title, site, source, date, tags) and role callouts or plain headings. "Open in Obsidian" copies the note and opens an `obsidian://new` link (vault and folder configurable); "Download note" saves a .md. Library > "ZIP for Obsidian" exports every saved chat with tags and folders. Tested in Chromium; the `obsidian://` hand-off itself was not tried against a real Obsidian install.
 - **Find inside a saved chat.** Library > Preview has a find bar: highlights, "3 of 12" counter, next/previous (Enter / Shift+Enter), case switch, "only matches". The library search term carries over.
 - **Web Store kit** in `store/`: listing text, permission justifications, privacy policy (md + html), 6 screenshots, promo tile and marquee. Build the upload with `bash tools/build-store.sh`.
-- **Renamed to Archiv** (from Cairn, which clashed with an existing AI-chat extension). Saved chats from the old build are copied over automatically on first run. The logo is still the old stacked-stones icon: replace `icons/*.png` with an archive-themed mark before publishing.
+- **Renamed to Archiv AI** (from Cairn, which clashed with an existing AI-chat extension). Saved chats from the old build are copied over automatically on first run. The logo is still the old stacked-stones icon: replace `icons/*.png` with an archive-themed mark before publishing.
 
 ## What was new in v0.4
 - **239 AI tools listed** (all you asked for) in Dashboard > Supported sites, with search, category and status filters. Only what a browser can read is marked as working; IDE plugins, terminals, desktop and mobile apps are listed as **No web page**, because there is nothing in a tab to export.
-- **Works on any page.** Click the icon (or Alt+Shift+E, or right-click > Export this chat with Archiv) on any http(s) tab. Archiv injects itself on demand through `activeTab`, so there is no "all websites" permission. Self-hosted UIs (Open WebUI, LibreChat, SillyTavern, localhost) work the same way.
+- **Works on any page.** Click the icon (or Alt+Shift+E, or right-click > Export this chat with Archiv AI) on any http(s) tab. Archiv AI injects itself on demand through `activeTab`, so there is no "all websites" permission. Self-hosted UIs (Open WebUI, LibreChat, SillyTavern, localhost) work the same way.
 - **Light / dark switcher**: small sun/moon button in the popup, dashboard and export page. Remembered everywhere.
 - **Popup redesigned** in the dashboard style. Round in-page export button on known AI sites (switch off in Settings).
-- Tested: 13 unit groups, and Chromium end-to-end runs (adapters, auto-detect, Teach Archiv, in-page button, injection on unknown hosts and localhost, theme sync).
+- Tested: 13 unit groups, and Chromium end-to-end runs (adapters, auto-detect, Teach Archiv AI, in-page button, injection on unknown hosts and localhost, theme sync).
 
-**Honest status:** 3 sites have selectors written from knowledge (ChatGPT, Claude, Gemini), 12 more are guesses (beta), and the remaining ~200 rely on auto-detect + Teach Archiv. **None were checked on live accounts.** Mock pages prove the logic, not the real markup.
+**Honest status:** 3 sites have selectors written from knowledge (ChatGPT, Claude, Gemini), 12 more are guesses (beta), and the remaining ~200 rely on auto-detect + Teach Archiv AI. **None were checked on live accounts.** Mock pages prove the logic, not the real markup.
 
 ## What was new in v0.3
 - 15 platforms (was 7): ChatGPT, Claude, Gemini, DeepSeek, Grok, Copilot, GitHub Copilot, Google AI Mode, AI Studio, Perplexity, NotebookLM, Kimi, YuanBao, Qwen, Doubao.
-- **Auto-detect**: if a site's selectors fail, Archiv scans for user/AI turns by attribute names.
-- **Teach Archiv**: popup button. Click one of your messages, then one AI reply. Archiv derives and saves selectors for that site.
-- **None of the 12 beta sites are verified on a live account.** Auto-detect and Teach Archiv are the safety net.
+- **Auto-detect**: if a site's selectors fail, Archiv AI scans for user/AI turns by attribute names.
+- **Teach Archiv AI**: popup button. Click one of your messages, then one AI reply. Archiv AI derives and saves selectors for that site.
+- **None of the 12 beta sites are verified on a live account.** Auto-detect and Teach Archiv AI are the safety net.
 
 ## What was new in v0.2
 | Area | Change |
 |---|---|
-| Brand | Renamed Archiv, new logo, new glass-purple UI |
+| Brand | Renamed Archiv AI, new logo, new glass-purple UI |
 | Dashboard | Overview with stats, activity chart, recent chats, quick find, folders. Plus Library, Folders, Supported sites, Settings |
 | Image export | PNG, rendered locally. Long chats are split into parts and zipped |
 | PDF themes | Light, Dark, Sepia, Sakura. Dark and Sakura fill the full page |
@@ -47,12 +47,12 @@ Save chats from 15 AI platforms to PDF, Word, PNG, Markdown, HTML, JSON or text.
 Kept from v0.1: redaction, message picking, full-history loading, Word export, selector fixes, JSON backup and import.
 
 ## Supported sites
-See Dashboard > Supported sites (239 tools). Built-in selectors: ChatGPT, Claude, Gemini, DeepSeek, Grok, Copilot, GitHub Copilot, Google AI Mode, AI Studio, Perplexity, NotebookLM, Kimi, YuanBao, Qwen, Doubao. Everything else: auto-detect + Teach Archiv.
+See Dashboard > Supported sites (239 tools). Built-in selectors: ChatGPT, Claude, Gemini, DeepSeek, Grok, Copilot, GitHub Copilot, Google AI Mode, AI Studio, Perplexity, NotebookLM, Kimi, YuanBao, Qwen, Doubao. Everything else: auto-detect + Teach Archiv AI.
 
 ## Known limits
 - **Selectors are unverified against live sites.** They are in `content/adapters.js`. Beta sites are written from memory of each site's markup. Test each one. If messages are missing, paste new selectors in the popup under "Fix selectors".
 - Images in chats export as links (Word, PDF) or alt text (PNG).
-- PDF uses the browser print dialog. Choose "Save as PDF". Dark and Sakura themes need "Background graphics" left on (Archiv requests it).
+- PDF uses the browser print dialog. Choose "Save as PDF". Dark and Sakura themes need "Background graphics" left on (Archiv AI requests it).
 - PNG parts: a very long chat is cut into slices of about 7000 px, so a cut can fall mid-line.
 - Not built yet: Google Docs sync, Claude Artifacts export.
 
@@ -102,14 +102,14 @@ node test/e2e-migrate.mjs
 1. Test each site on a real account. Fix selectors.
 2. Screenshots 1280x800 (dashboard, export page, dark PDF). Promo tile 440x280.
 3. Privacy policy page: "all data stays on your device".
-4. Name check: search the Chrome Web Store and trademark databases for "Archiv" before committing. A web search found no AI-chat-export extension with that exact name, but "archive"-style names are crowded and a search is not clearance.
+4. Name check: search the Chrome Web Store and trademark databases for "Archiv AI" before committing. A web search found no AI-chat-export extension with that exact name, but "archive"-style names are crowded and a search is not clearance.
 
 ## Next
 Pro tier (cloud-free): unlimited PDF themes, branded headers. Branded PDF headers. Claude Artifacts export. Notion database mode.
 
 ## v0.6
 
-- **One tab.** "Export this chat" sends the chat to the Archiv **Inbox** in the single Archiv tab (reused if open). Each entry is a "Recent copy from <tool>" with Save to vault, Export… or Discard.
+- **One tab.** "Export this chat" sends the chat to the Archiv AI **Inbox** in the single Archiv AI tab (reused if open). Each entry is a "Recent copy from <tool>" with Save to vault, Export… or Discard.
 - **Duplicate detection.** Same chat (site + URL, or title when the URL is a site home) is recognised. Identical: the saved copy is replaced. New messages: the saved chat keeps its messages and the new ones are added, marked **Updated**. Diverged: content replaced, tags and folder kept.
 - **Topic tags.** Up to four tags suggested from keywords (coding, travel, data, …); edit them in the Inbox card or on the export page.
 - **Export dock.** One-click format icons below the preview, exporting the selected messages (PDF, Word, image, Markdown, JSON, text, HTML, Obsidian, Notion).

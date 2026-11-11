@@ -18,8 +18,8 @@ const CHEVL = '<path d="m15 6-6 6 6 6"/>';
 const svg = (k, cls = '') => `<svg class="${cls}" viewBox="0 0 24 24">${I[k]}</svg>`;
 
 const ls = {
-  get(k, d) { try { const v = localStorage.getItem('archiv.sb.' + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
-  set(k, v) { try { localStorage.setItem('archiv.sb.' + k, JSON.stringify(v)); } catch { /* ignore */ } }
+  get(k, d) { try { const v = localStorage.getItem('archiv-ai.sb.' + k) ?? localStorage.getItem('archiv.sb.' + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem('archiv-ai.sb.' + k, JSON.stringify(v)); } catch { /* ignore */ } }
 };
 
 let opts = { page: 'dashboard', title: 'Dashboard', current: null };
@@ -73,7 +73,7 @@ export async function renderSidebar() {
 
   root.className = 'sb' + (collapsed ? ' collapsed' : '');
   root.innerHTML = `
-    <div class="rail"><a class="rl logo" href="${H}#dashboard" title="Archiv"><img src="icons/128.png" alt="Archiv"></a><button class="sbtoggle" aria-label="Collapse or expand sidebar" title="Collapse / expand sidebar" aria-expanded="${!collapsed}"><svg viewBox="0 0 24 24">${CHEVL}</svg></button>${rail}<span class="grow"></span></div>
+    <div class="rail"><a class="rl logo" href="${H}#dashboard" title="Archiv AI"><img src="icons/128.png" alt="Archiv AI"></a><button class="sbtoggle" aria-label="Collapse or expand sidebar" title="Collapse / expand sidebar" aria-expanded="${!collapsed}"><svg viewBox="0 0 24 24">${CHEVL}</svg></button>${rail}<span class="grow"></span></div>
     <div class="panel">
       <div class="phead"><h2>${esc(opts.title)}</h2></div>
       <div class="ptree">
@@ -83,9 +83,9 @@ export async function renderSidebar() {
         ${groupHtml('tools', 'Tools', 'gear', tools, true)}
       </div>
       <div class="promo"><h3>Back up your vault</h3><p>Everything lives in this browser. Keep a copy.</p><button id="promoBackup">Download backup <span>→</span></button></div>
-      <div class="sb-foot"><a class="bmc sm" href="https://www.buymeacoffee.com/Socialmania99" target="_blank" rel="noopener"><span class="cup" aria-hidden="true">☕</span>Buy me a coffee</a><a class="gh" href="https://github.com/socialmania99/archiv" target="_blank" rel="noopener">GitHub</a></div>
+      <div class="sb-foot"><a class="bmc sm" href="https://www.buymeacoffee.com/Socialmania99" target="_blank" rel="noopener"><span class="cup" aria-hidden="true">☕</span>Buy me a coffee</a><a class="gh" href="https://github.com/socialmania99/archiv-ai" target="_blank" rel="noopener">GitHub</a></div>
     </div>`;
-  if (window.ArchivTheme) window.ArchivTheme.mount();
+  if (window.ArchivAiTheme) window.ArchivAiTheme.mount();
 }
 
 export function mountSidebar(o = {}) {

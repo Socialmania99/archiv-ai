@@ -16,7 +16,7 @@ const ctx = await chromium.launchPersistentContext('/tmp/cv-profile-s-' + Date.n
 let [sw] = ctx.serviceWorkers(); if (!sw) sw = await ctx.waitForEvent('serviceworker');
 const id = sw.url().split('/')[2];
 const U = (p) => `chrome-extension://${id}/${p}`;
-const setTheme = (p, m) => p.evaluate((x) => window.ArchivTheme.apply(x), m);
+const setTheme = (p, m) => p.evaluate((x) => window.ArchivAiTheme.apply(x), m);
 
 const chat = `<!doctype html><meta charset="utf-8"><title>Plan a 3-day Rome trip - ChatGPT</title><body>
 <div data-message-author-role="user"><div class="whitespace-pre-wrap">Plan a relaxed 3-day trip to Rome. Include a budget table and one script to split costs.</div></div>
@@ -73,7 +73,7 @@ p.sub{position:absolute;left:56px;font-size:20px;opacity:.85;max-width:520px;lin
 const shots = [
   ['01-export-anywhere', 'Export any AI chat in one click', 'PDF, Word, PNG, Markdown, Notion or Obsidian. Secrets redacted first.', 'export-dark.png', 1280],
   ['02-dashboard-dark', 'A private library for every chat', 'Search, tag and folder your saved chats. Stored on your device only.', 'dash-dark.png', 1280],
-  ['03-dashboard-light', 'Light and dark, one click', 'Switch themes from any Archiv page.', 'dash-light.png', 1280],
+  ['03-dashboard-light', 'Light and dark, one click', 'Switch themes from any Archiv AI page.', 'dash-light.png', 1280],
   ['04-sites', 'Works across the AI tools you use', 'Built-in support for major chat sites. Any other page: just teach it.', 'sites-light.png', 1280],
   ['05-export-light', 'Pick what goes in the document', 'Choose messages, themes and fonts. Preview before you save.', 'export-light.png', 1280]
 ];
@@ -91,11 +91,11 @@ await pg.setContent(`<style>${base}</style><div class="bg"></div><h1>Light or da
 await pg.screenshot({ path: path.join(OUT, '06-popup.png') });
 // promo tiles
 const pt = await br.newPage({ viewport: { width: 440, height: 280 } });
-await pt.setContent(`<style>${base}</style><div class="bg"></div><div class="brand" style="left:32px;top:34px"><img src="${logo}">Archiv</div>
+await pt.setContent(`<style>${base}</style><div class="bg"></div><div class="brand" style="left:32px;top:34px"><img src="${logo}">Archiv AI</div>
  <h1 style="left:32px;top:112px;font-size:30px;max-width:380px">Save any AI chat. Keep it private.</h1><p class="sub" style="left:32px;top:200px;font-size:15px;max-width:380px">PDF · Word · PNG · Markdown · Notion · Obsidian</p>`);
 await pt.screenshot({ path: path.join(OUT, 'promo-small-440x280.png') });
 const mq = await br.newPage({ viewport: { width: 1400, height: 560 } });
-await mq.setContent(`<style>${base}</style><div class="bg"></div><div class="brand" style="left:80px;top:70px;font-size:34px"><img src="${logo}" style="width:56px;height:56px">Archiv</div>
+await mq.setContent(`<style>${base}</style><div class="bg"></div><div class="brand" style="left:80px;top:70px;font-size:34px"><img src="${logo}" style="width:56px;height:56px">Archiv AI</div>
  <h1 style="left:80px;top:170px;font-size:60px;max-width:720px">Save any AI chat.<br>Keep it private.</h1><p class="sub" style="left:80px;top:370px;font-size:24px;max-width:640px">Export to PDF, Word, PNG, Markdown, Notion or Obsidian. No account. Nothing leaves your device.</p>
  <div class="win" style="left:760px;top:60px;width:560px;transform:rotate(2deg)"><img src="${b64(path.join(RAW, 'dash-dark.png'))}"></div>`);
 await mq.screenshot({ path: path.join(OUT, 'promo-marquee-1400x560.png') });

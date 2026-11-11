@@ -15,7 +15,7 @@ const base = { site: 'chatgpt', siteName: 'ChatGPT', title: 'React bug help', ur
 const send = (p) => d.evaluate((pl) => chrome.runtime.sendMessage({ type: 'open-export', payload: pl }), p);
 
 await send(base); await d.waitForSelector('.ib');
-assert.equal(extTabs(), 1, 'single Archiv tab'); assert.equal(ctx.pages().length, basePages);
+assert.equal(extTabs(), 1, 'single Archiv AI tab'); assert.equal(ctx.pages().length, basePages);
 assert.match(await d.locator('.ib-from').innerText(), /Recent copy from ChatGPT/);
 assert.match(await d.locator('.ib-st').innerText(), /New chat/);
 const tags = await d.locator('.ib-tagsin').inputValue(); console.log('tags:', tags);

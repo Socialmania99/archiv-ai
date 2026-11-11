@@ -71,8 +71,8 @@ const chat = (t) => mk(t, '<div data-role="human">What is 2+2?</div><div data-ro
   assert.equal(await ui(), first);
   await pop.click('[data-theme-toggle]');         // end on the flipped value, then check persistence elsewhere
   await pop.screenshot({ path: path.join(OUT, `popup-${first === 'dark' ? 'light' : 'dark'}-b.png`) });
-  const stored = await sw.evaluate(() => chrome.storage.local.get('archivUi'));
-  assert.equal(stored.archivUi, second);
+  const stored = await sw.evaluate(() => chrome.storage.local.get('archivAiUi'));
+  assert.equal(stored.archivAiUi, second);
 
   const dash = await ctx.newPage(); watch(dash, 'dashboard');
   await dash.goto(`chrome-extension://${extId}/dashboard.html#settings`); await dash.waitForSelector('#addSamples');
@@ -82,7 +82,7 @@ const chat = (t) => mk(t, '<div data-role="human">What is 2+2?</div><div data-ro
   await dash.goto(`chrome-extension://${extId}/dashboard.html`); await dash.waitForSelector('.rc');
   await dash.setViewportSize({ width: 1420, height: 920 });
   for (const mode of ['light', 'dark']) {
-    await dash.evaluate((m) => window.ArchivTheme.apply(m), mode);
+    await dash.evaluate((m) => window.ArchivAiTheme.apply(m), mode);
     assert.equal(await dash.evaluate(() => document.documentElement.dataset.ui), mode);
     await dash.waitForTimeout(250);
     await dash.screenshot({ path: path.join(OUT, `dashboard-${mode}.png`) });
@@ -102,7 +102,7 @@ const chat = (t) => mk(t, '<div data-role="human">What is 2+2?</div><div data-ro
   assert.equal(await dash.locator('.sitecard').count(), 15);
   await dash.selectOption('#siteTier', '');
   for (const mode of ['light', 'dark']) {
-    await dash.evaluate((m) => window.ArchivTheme.apply(m), mode);
+    await dash.evaluate((m) => window.ArchivAiTheme.apply(m), mode);
     await dash.screenshot({ path: path.join(OUT, `sites-${mode}.png`) });
   }
   // float button setting
@@ -118,7 +118,7 @@ const chat = (t) => mk(t, '<div data-role="human">What is 2+2?</div><div data-ro
 
 // ======================= B. on-demand injection on any page =======================
 {
-  const tmp = '/tmp/archiv-inject-copy'; fs.rmSync(tmp, { recursive: true, force: true });
+  const tmp = '/tmp/archiv-ai-inject-copy'; fs.rmSync(tmp, { recursive: true, force: true });
   fs.cpSync(EXT, tmp, { recursive: true, filter: (s) => !s.includes('node_modules') && !s.endsWith('.zip') });
   const m = JSON.parse(fs.readFileSync(path.join(tmp, 'manifest.json')));
   m.host_permissions = ['<all_urls>'];                 // stands in for the activeTab grant a real click gives

@@ -100,7 +100,7 @@ t('themes', () => {
   assert.ok(toHtmlDoc(conv, conv.messages, { theme: 'sakura', font: 'Georgia', size: 11, page: 'A4' }).includes('#fff5f8'));
 });
 t('merged sections', () => {
-  const merged = { title: 'Combined', site: 'multi', siteName: 'Archiv', exportedAt: '2026-11-08T10:00:00Z', messages: [
+  const merged = { title: 'Combined', site: 'multi', siteName: 'Archiv AI', exportedAt: '2026-11-08T10:00:00Z', messages: [
     { i: 0, role: 'section', markdown: 'First chat' }, { i: 1, role: 'user', markdown: 'q1' }, { i: 2, role: 'assistant', markdown: 'a1', siteName: 'Claude' },
     { i: 3, role: 'section', markdown: 'Second chat' }, { i: 4, role: 'assistant', markdown: 'a2', siteName: 'Gemini' }] };
   const onlyAi = pickMessages(merged, 'assistant');

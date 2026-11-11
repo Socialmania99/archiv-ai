@@ -1,4 +1,4 @@
-// After a content-script export, the Archiv tab shows the Inbox. Click the newest card's Export… and return that page.
+// After a content-script export, the Archiv AI tab shows the Inbox. Click the newest card's Export… and return that page.
 export async function toExportPage(ctx, timeout = 20000) {
   const end = Date.now() + timeout;
   let pg = null;

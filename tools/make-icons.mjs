@@ -1,4 +1,4 @@
-// Draws the Archiv icon (archive box on a purple gradient) at 16/48/128 px.
+// Draws the Archiv AI icon (archive box on a purple gradient) at 16/48/128 px.
 import { createRequire } from 'node:module';
 import fs from 'node:fs';
 import path from 'node:path';

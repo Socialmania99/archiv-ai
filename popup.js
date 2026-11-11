@@ -18,7 +18,7 @@ function setIdle(name, msg) {
 async function scan() {
   [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   if (!tab || !isInjectable(tab.url)) {
-    setIdle('Nothing to export here', 'Open a chat on ChatGPT, Claude, Gemini, DeepSeek, Grok, Perplexity or any other AI site, then click Archiv again.');
+    setIdle('Nothing to export here', 'Open a chat on ChatGPT, Claude, Gemini, DeepSeek, Grok, Perplexity or any other AI site, then click Archiv AI again.');
     return;
   }
   let info = null;
@@ -42,12 +42,12 @@ async function scan() {
   if (info.beta) tags.append(tag('BETA', true));
   const status = $('status');
   if (info.count === 0) {
-    status.textContent = 'No messages detected. Scroll the chat into view, or click Teach Archiv and pick one of your messages and one reply.';
+    status.textContent = 'No messages detected. Scroll the chat into view, or click Teach Archiv AI and pick one of your messages and one reply.';
     $('fix').open = false;
   } else if (info.auto) {
-    status.textContent = 'Found by auto-detect. Check the preview. If it looks off, use Teach Archiv.';
+    status.textContent = 'Found by auto-detect. Check the preview. If it looks off, use Teach Archiv AI.';
   } else if (info.beta) {
-    status.textContent = 'This site is new in Archiv. If messages are missing, use Teach Archiv.';
+    status.textContent = 'This site is new in Archiv AI. If messages are missing, use Teach Archiv AI.';
   } else status.textContent = '';
   $('export').disabled = false;
   $('teach').disabled = false;
@@ -66,7 +66,7 @@ $('export').onclick = async () => {
   $('export').disabled = false;
   $('export').textContent = 'Export this chat';
   $('status').textContent = res && res.error === 'no-messages'
-    ? 'No messages found. Use Teach Archiv, or fix selectors below.'
+    ? 'No messages found. Use Teach Archiv AI, or fix selectors below.'
     : 'Could not read this tab. Reload it and try again.';
 };
 
@@ -94,4 +94,4 @@ $('resetSel').onclick = async () => {
   await scan();
 };
 
-scan().catch(() => setIdle('Something went wrong', 'Reload the tab and open Archiv again.'));
+scan().catch(() => setIdle('Something went wrong', 'Reload the tab and open Archiv AI again.'));

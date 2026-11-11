@@ -14,7 +14,7 @@ for l in md:
     elif l.startswith('# '): out.append('<h1>' + inl(l[2:]) + '</h1>')
     elif l.strip(): out.append('<p>' + inl(l) + '</p>')
 if ul: out.append('</ul>')
-page = ('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Archiv privacy policy</title>'
+page = ('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Archiv AI privacy policy</title>'
  '<style>body{font:16px/1.6 system-ui,sans-serif;max-width:720px;margin:40px auto;padding:0 20px;color:#1c1b2e}h1{font-size:28px}h2{margin-top:1.6em;font-size:20px}code{background:#f1effe;padding:1px 5px;border-radius:4px}</style></head><body>\n'
  + '\n'.join(out) + '\n</body></html>\n')
 open(os.path.join(root, 'store/privacy-policy.html'), 'w', encoding='utf-8').write(page)

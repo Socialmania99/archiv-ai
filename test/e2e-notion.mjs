@@ -7,7 +7,7 @@ const { chromium } = createRequire(import.meta.url)('playwright');
 const EXT = path.resolve(new URL('..', import.meta.url).pathname);
 
 // stand-in for the optional-permission grant a real click gives
-const tmp = '/tmp/archiv-notion-copy'; fs.rmSync(tmp, { recursive: true, force: true });
+const tmp = '/tmp/archiv-ai-notion-copy'; fs.rmSync(tmp, { recursive: true, force: true });
 fs.cpSync(EXT, tmp, { recursive: true, filter: (s) => !s.includes('node_modules') && !s.endsWith('.zip') });
 const m = JSON.parse(fs.readFileSync(path.join(tmp, 'manifest.json')));
 m.host_permissions = ['https://api.notion.com/*']; delete m.optional_host_permissions;
@@ -48,7 +48,7 @@ const exportFrom = async () => {
   await ep.click('#download'); await ep.waitForSelector('.toast.show');
   assert.match(await ep.locator('.toast').innerText(), /Connect Notion first/);
   assert.equal(seen.length, 0, 'no network before connecting');
-  /* single Archiv tab: keep it */
+  /* single Archiv AI tab: keep it */
 }
 // 2. connect in dashboard settings
 const d = await ctx.newPage(); watch(d);

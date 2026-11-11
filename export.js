@@ -347,11 +347,11 @@ function bind() {
   conv = await loadConversation();
   if (!conv) {
     $('title').textContent = 'Nothing to export';
-    $('meta').textContent = 'This export is no longer in your Inbox. Open a chat and use Archiv again.';
+    $('meta').textContent = 'This export is no longer in your Inbox. Open a chat and use Archiv AI again.';
     return;
   }
   selected = new Set(conv.messages.map((m) => m.i));
-  document.title = 'Archiv · ' + conv.title;
+  document.title = 'Archiv AI · ' + conv.title;
   mountSidebar({ page: 'export', title: 'Export', current: conv.title });
   $('title').textContent = conv.title;
   const n = conv.messages.filter((m) => m.role !== 'section').length;

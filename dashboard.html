@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Archiv · Dashboard</title>
+  <title>Archiv AI · Dashboard</title>
   <script src="theme.js"></script>
   <link rel="stylesheet" href="ui.css">
   <link rel="stylesheet" href="switch.css">
@@ -119,7 +119,7 @@
     <!-- ===== Sites ===== -->
     <section id="view-sites" class="view" hidden>
       <div class="sectionhead"><h2>Supported sites</h2><span class="muted small" id="siteCount"></span></div>
-      <p class="muted">Open a chat on any listed site, then click the Archiv icon, press Alt+Shift+E, or use the small round button Archiv adds to the page. <b>Any other chat page works too</b>: click the icon and, if needed, <b>Teach Archiv</b>.</p>
+      <p class="muted">Open a chat on any listed site, then click the Archiv AI icon, press Alt+Shift+E, or use the small round button Archiv AI adds to the page. <b>Any other chat page works too</b>: click the icon and, if needed, <b>Teach Archiv AI</b>.</p>
       <div class="sitefilters">
         <input type="search" id="siteSearch" placeholder="Search 230+ AI tools…" aria-label="Search AI tools">
         <select id="siteCat" aria-label="Category"></select>
@@ -127,7 +127,7 @@
           <option value="">All statuses</option><option value="selectors">Built-in selectors</option><option value="web">Auto-detect / Teach</option><option value="local">Self-hosted</option><option value="via">Via another site</option><option value="app">Not a web page</option>
         </select>
       </div>
-      <p class="muted small legend"><b>Built-in selectors</b>: written for that site, not yet checked on a live account. <b>Auto-detect / Teach</b>: Archiv finds the turns itself; use Teach Archiv if it misses. <b>Not a web page</b>: IDE plugins, terminals, desktop and mobile apps have nothing in a browser tab to read.</p>
+      <p class="muted small legend"><b>Built-in selectors</b>: written for that site, not yet checked on a live account. <b>Auto-detect / Teach</b>: Archiv AI finds the turns itself; use Teach Archiv AI if it misses. <b>Not a web page</b>: IDE plugins, terminals, desktop and mobile apps have nothing in a browser tab to read.</p>
       <div id="sitesAll" class="sitesall"></div>
     </section>
 
@@ -147,15 +147,15 @@
           <ol>
             <li><b>Have a Notion account.</b> Free is fine. Sign in at <a href="https://www.notion.so" target="_blank" rel="noopener">notion.so</a>.</li>
             <li><b>Make a page to hold your chats.</b> In Notion click <b>+ New page</b> in the sidebar, name it <i>AI Chats</i>. Leave it empty.</li>
-            <li><b>Create an integration</b> (a key that lets Archiv write). Open <a href="https://www.notion.so/profile/integrations" target="_blank" rel="noopener">notion.so/profile/integrations</a> (older link: notion.so/my-integrations). Click <b>New integration</b>, name it <i>Archiv</i>, pick your workspace, type <b>Internal</b>, then <b>Save</b>.</li>
+            <li><b>Create an integration</b> (a key that lets Archiv AI write). Open <a href="https://www.notion.so/profile/integrations" target="_blank" rel="noopener">notion.so/profile/integrations</a> (older link: notion.so/my-integrations). Click <b>New integration</b>, name it <i>Archiv AI</i>, pick your workspace, type <b>Internal</b>, then <b>Save</b>.</li>
             <li><b>Allow it to write.</b> On the integration's <b>Capabilities</b> tab keep <b>Read content</b>, <b>Insert content</b> and <b>Update content</b> ticked.</li>
             <li><b>Copy the secret.</b> On the <b>Configuration</b> tab click <b>Show</b> then <b>Copy</b> next to <i>Internal Integration Secret</i>. It starts with <code>ntn_</code> or <code>secret_</code>. Treat it like a password.</li>
-            <li><b>Share the page with the integration.</b> Open your <i>AI Chats</i> page, click <b>•••</b> (top right) › <b>Connections</b> › search <i>Archiv</i> › <b>Confirm</b>. Skip this and Notion answers “object not found”.</li>
+            <li><b>Share the page with the integration.</b> Open your <i>AI Chats</i> page, click <b>•••</b> (top right) › <b>Connections</b> › search <i>Archiv AI</i> › <b>Confirm</b>. Skip this and Notion answers “object not found”.</li>
             <li><b>Copy the page link.</b> On that page click <b>Share</b> › <b>Copy link</b>.</li>
             <li><b>Paste both below.</b> Secret into <i>Integration secret</i>, link into <i>Parent page link or ID</i>.</li>
-            <li><b>Choose how chats are saved.</b> <i>Separate pages</i>: each chat is a sub-page. <i>Rows in a database</i>: Archiv creates a table <i>Archiv chats</i> with Site, Tags, Date, Messages and URL columns.</li>
+            <li><b>Choose how chats are saved.</b> <i>Separate pages</i>: each chat is a sub-page. <i>Rows in a database</i>: Archiv AI creates a table <i>Archiv AI chats</i> with Site, Tags, Date, Messages and URL columns.</li>
             <li><b>Click Connect and test.</b> Your browser asks permission to reach api.notion.com: click <b>Allow</b>. Status turns to “Connected to …”.</li>
-            <li><b>Send a chat.</b> Open a chat, click Archiv › <b>Export this chat</b> › in the Inbox click <b>Export…</b>, pick <b>Notion</b> in the format menu, then <b>Send to Notion</b>. Click <b>Open in Notion</b> when done.</li>
+            <li><b>Send a chat.</b> Open a chat, click Archiv AI › <b>Export this chat</b> › in the Inbox click <b>Export…</b>, pick <b>Notion</b> in the format menu, then <b>Send to Notion</b>. Click <b>Open in Notion</b> when done.</li>
           </ol>
           <p class="muted small"><b>Problems?</b> “Could not find page / Connections”: redo step 6. “Token”/401: copy the secret again (step 5). Nothing happens on Allow: click Connect again. Your secret stays in this browser; it is never synced or sent anywhere except api.notion.com. Disconnect any time with the button below and delete the integration in Notion to revoke it fully.</p>
         </details>
@@ -164,12 +164,12 @@
           <label>Send chats as</label><select id="nMode"><option value="page">Separate pages under that page</option><option value="database">Rows in a database (site, tags, date, messages, link)</option></select>
           <div class="row" style="margin-top:8px"><button class="primary" id="nSave">Connect and test</button><button id="nClear">Disconnect</button></div>
           <div class="muted small" id="nStatus" role="status"></div></div>
-        <div class="card glass-in"><h3>In-page button</h3><p class="muted">The small round Export button Archiv adds to known AI sites.</p><label class="inline"><input type="checkbox" id="floatBtn"> Show it on AI sites</label></div>
+        <div class="card glass-in"><h3>In-page button</h3><p class="muted">The small round Export button Archiv AI adds to known AI sites.</p><label class="inline"><input type="checkbox" id="floatBtn"> Show it on AI sites</label></div>
         <div class="card glass-in"><h3>Selector fixes</h3><p class="muted">Custom selectors you saved from the popup.</p><div id="overrides"></div></div>
         <div class="card glass-in" id="aboutCard"><h3>About &amp; support</h3>
-          <p class="muted">Archiv is free, open source and made by one person. If it saves you time, you can support it.</p>
+          <p class="muted">Archiv AI is free, open source and made by one person. If it saves you time, you can support it.</p>
           <p><a class="bmc" href="https://www.buymeacoffee.com/Socialmania99" target="_blank" rel="noopener"><span class="cup" aria-hidden="true">☕</span>Buy me a coffee</a></p>
-          <div class="linkrow"><a href="https://github.com/socialmania99/archiv" target="_blank" rel="noopener">GitHub</a><a href="https://github.com/socialmania99/archiv/issues" target="_blank" rel="noopener">Report an issue</a><a href="https://github.com/socialmania99/archiv/releases" target="_blank" rel="noopener">Releases</a><a href="https://socialmania99.github.io/archiv/" target="_blank" rel="noopener">Website</a><a href="https://socialmania99.github.io/archiv/privacy.html" target="_blank" rel="noopener">Privacy policy</a></div>
+          <div class="linkrow"><a href="https://github.com/socialmania99/archiv-ai" target="_blank" rel="noopener">GitHub</a><a href="https://github.com/socialmania99/archiv-ai/issues" target="_blank" rel="noopener">Report an issue</a><a href="https://github.com/socialmania99/archiv-ai/releases" target="_blank" rel="noopener">Releases</a><a href="https://socialmania99.github.io/archiv-ai/" target="_blank" rel="noopener">Website</a><a href="https://socialmania99.github.io/archiv-ai/privacy.html" target="_blank" rel="noopener">Privacy policy</a></div>
           <p class="muted small" id="ver"></p></div>
         <div class="card glass-in"><h3>Danger zone</h3><p class="muted">Delete every saved chat from this browser. This cannot be undone.</p><button id="wipe" class="danger">Delete all saved chats</button></div>
       </div>

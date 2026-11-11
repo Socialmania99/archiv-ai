@@ -89,7 +89,7 @@ function renderInbox() {
       <div class="ib-acts"><button class="primary" data-a="isave">Save to vault</button><button data-a="ipreview" aria-expanded="false">Preview</button><button data-a="iexport">Export…</button><button data-a="idiscard" class="danger">Discard</button></div>
       <div class="ib-pane" hidden></div>
     </article>`;
-  }).join('') : '<div class="empty glass-in">Inbox is empty. Open a chat, click the Archiv icon and choose “Export this chat”. It appears here.</div>';
+  }).join('') : '<div class="empty glass-in">Inbox is empty. Open a chat, click the Archiv AI icon and choose “Export this chat”. It appears here.</div>';
 }
 $('inboxList').addEventListener('input', (e) => { if (e.target.classList.contains('ib-tagsin')) inboxTags[e.target.closest('.ib').dataset.pid] = e.target.value; });
 $('inboxList').addEventListener('click', async (e) => {
@@ -450,13 +450,13 @@ async function exportCombined() {
     messages.push({ i: messages.length, role: 'section', markdown: c.title });
     c.messages.forEach((m) => messages.push({ i: messages.length, role: m.role, markdown: m.markdown, siteName: c.siteName }));
   });
-  const payload = { site: 'multi', siteName: 'Archiv', title: `Combined export (${chats.length} chats)`, url: '', exportedAt: new Date().toISOString(), merged: true, messages };
+  const payload = { site: 'multi', siteName: 'Archiv AI', title: `Combined export (${chats.length} chats)`, url: '', exportedAt: new Date().toISOString(), merged: true, messages };
   await chrome.runtime.sendMessage({ type: 'open-export', payload });
 }
 
 async function backup() {
   if (!all.length) return toast('Nothing to back up yet');
-  download(new Blob([JSON.stringify(all.map(({ searchText, ...r }) => r), null, 1)], { type: 'application/json' }), 'archiv-backup-' + new Date().toISOString().slice(0, 10) + '.json');
+  download(new Blob([JSON.stringify(all.map(({ searchText, ...r }) => r), null, 1)], { type: 'application/json' }), 'archiv-ai-backup-' + new Date().toISOString().slice(0, 10) + '.json');
 }
 
 /* ---------- events ---------- */
@@ -489,7 +489,7 @@ document.addEventListener('click', async (e) => {
     if (!parentId) { $('nStatus').textContent = 'That does not look like a Notion page link or ID.'; return; }
     $('nStatus').textContent = 'Checking…';
     try {
-      if (!(await ensureNotionAccess())) { $('nStatus').textContent = 'Archiv needs permission to reach api.notion.com. Click again and allow it.'; return; }
+      if (!(await ensureNotionAccess())) { $('nStatus').textContent = 'Archiv AI needs permission to reach api.notion.com. Click again and allow it.'; return; }
       const { title } = await testNotion({ token, parentId });
       const old = await getNotion(); const mode = $('nMode').value;
       await setNotion({ token, parentId, parentUrl: $('nPage').value.trim(), pageTitle: title, mode, databaseId: old && old.parentId === parentId ? old.databaseId : undefined });
@@ -516,7 +516,7 @@ document.addEventListener('click', async (e) => {
       return { name: n + '.md', data: toObsidianDoc(c, c.messages, { tags: c.tags || [] }) };
     });
     if (!files.length) return toast('Nothing saved yet');
-    return download(zip(files), 'archiv-obsidian-notes.zip');
+    return download(zip(files), 'archiv-ai-obsidian-notes.zip');
   }
   if (btn.id === 'zipAll') {
     if (!all.length) return toast('Vault is empty');
@@ -527,7 +527,7 @@ document.addEventListener('click', async (e) => {
       used.add(n);
       return { name: n + '.md', data: toMarkdownDoc(c, c.messages) };
     });
-    return download(zip(files), 'archiv-library.zip');
+    return download(zip(files), 'archiv-ai-library.zip');
   }
   if (btn.id === 'import') return $('file').click();
 
@@ -586,7 +586,7 @@ $('file').onchange = async () => {
   if (!f) return;
   try {
     const data = JSON.parse(await f.text());
-    if (!Array.isArray(data)) throw new Error('not a Archiv backup');
+    if (!Array.isArray(data)) throw new Error('not a Archiv AI backup');
     let n = 0;
     for (const c of data) if (c && c.title && Array.isArray(c.messages)) { await saveChat(c); n++; }
     toast(`Imported ${n} chats`);
@@ -610,4 +610,4 @@ chrome.runtime.onMessage.addListener((m) => { if (m && m.type === 'hash' && m.ha
 document.addEventListener('click', (e) => { if (!e.target.closest('.xfer') && $('xferMenu')) { $('xferMenu').hidden = true; $('xferBtn').setAttribute('aria-expanded', 'false'); } });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && $('xferMenu')) $('xferMenu').hidden = true; });
 
-try { const v = chrome.runtime.getManifest().version; const el = document.getElementById('ver'); if (el) el.textContent = 'Archiv v' + v; } catch { /* ignore */ }
+try { const v = chrome.runtime.getManifest().version; const el = document.getElementById('ver'); if (el) el.textContent = 'Archiv AI v' + v; } catch { /* ignore */ }

@@ -2,10 +2,10 @@
 // Content script -> here -> stores payload -> opens export page.
 import { sendToTab } from './lib/inject.js';
 
-const MENU_ID = 'archiv-export';
+const MENU_ID = 'archiv-ai-export';
 function setupMenus() {
   chrome.contextMenus.removeAll(() => {
-    chrome.contextMenus.create({ id: MENU_ID, title: 'Export this chat with Archiv', contexts: ['page', 'action'] }, () => void chrome.runtime.lastError);
+    chrome.contextMenus.create({ id: MENU_ID, title: 'Export this chat with Archiv AI', contexts: ['page', 'action'] }, () => void chrome.runtime.lastError);
   });
 }
 
@@ -32,8 +32,8 @@ async function exportTab(tab) {
 
 chrome.contextMenus.onClicked.addListener((info, tab) => { if (info.menuItemId === MENU_ID) exportTab(tab); });
 
-/** One Archiv tab only: reuse it if open (any Archiv page), otherwise create it. */
-async function focusArchiv(path) {
+/** One Archiv AI tab only: reuse it if open (any Archiv AI page), otherwise create it. */
+async function focusArchivAi(path) {
   const url = chrome.runtime.getURL(path);
   // tab.url is hidden without the "tabs" permission, so find our own pages through getContexts.
   const ctxs = await chrome.runtime.getContexts({ contextTypes: ['TAB'] }).catch(() => []);
@@ -50,17 +50,17 @@ chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
     const id = crypto.randomUUID();
     chrome.storage.local
       .set({ ['pending:' + id]: { ...msg.payload, receivedAt: Date.now() } })
-      .then(() => focusArchiv(msg.payload.merged ? 'export.html?id=' + id : 'dashboard.html#inbox'))
+      .then(() => focusArchivAi(msg.payload.merged ? 'export.html?id=' + id : 'dashboard.html#inbox'))
       .then(() => sendResponse({ ok: true }))
       .catch((e) => sendResponse({ ok: false, error: String(e) }));
     return true; // async response
   }
   if (msg?.type === 'open-page' && /^[a-z]+\.html(\?[\w=%&.-]*)?(#[\w-]*)?$/.test(msg.path || '')) {
-    focusArchiv(msg.path).then(() => sendResponse({ ok: true }));
+    focusArchivAi(msg.path).then(() => sendResponse({ ok: true }));
     return true;
   }
   if (msg?.type === 'open-library' || msg?.type === 'open-dashboard') {
-    focusArchiv('dashboard.html' + (msg.hash || '')).then(() => sendResponse({ ok: true }));
+    focusArchivAi('dashboard.html' + (msg.hash || '')).then(() => sendResponse({ ok: true }));
     return true;
   }
   return false;

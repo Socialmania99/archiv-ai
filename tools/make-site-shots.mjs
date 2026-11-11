@@ -11,7 +11,7 @@ fs.rmSync(RAW, { recursive: true, force: true }); fs.mkdirSync(RAW, { recursive:
 const ctx = await chromium.launchPersistentContext('/tmp/cv-profile-site-' + Date.now(), { channel: 'chromium', headless: true, viewport: { width: 1360, height: 860 }, deviceScaleFactor: 2, args: [`--disable-extensions-except=${EXT}`, `--load-extension=${EXT}`] });
 let [sw] = ctx.serviceWorkers(); if (!sw) sw = await ctx.waitForEvent('serviceworker');
 const id = sw.url().split('/')[2]; const U = (p) => `chrome-extension://${id}/${p}`;
-const theme = (p, m) => p.evaluate((x) => window.ArchivTheme.apply(x), m);
+const theme = (p, m) => p.evaluate((x) => window.ArchivAiTheme.apply(x), m);
 const chat = `<!doctype html><meta charset="utf-8"><title>Plan a 3-day Rome trip - ChatGPT</title><body>
 <div data-message-author-role="user"><div class="whitespace-pre-wrap">Plan a relaxed 3-day trip to Rome. Include a budget table.</div></div>
 <div data-message-author-role="assistant"><div class="markdown"><h2>3 days in Rome</h2><p>A <strong>relaxed plan</strong> with the main sights spread out:</p><ol><li>Day 1: Colosseum and Forum</li><li>Day 2: Vatican Museums</li><li>Day 3: Trastevere and Pantheon</li></ol><table><thead><tr><th>Item</th><th>Per day</th></tr></thead><tbody><tr><td>Food</td><td>€55</td></tr><tr><td>Transport</td><td>€12</td></tr></tbody></table></div></div>
