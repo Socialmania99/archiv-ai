@@ -3,7 +3,7 @@
 // Selectors are the part that breaks when a site redesigns, so they live in ONE
 // file. Three layers keep exports working anyway:
 //   1. the site's own selectors below
-//   2. user overrides (popup > "Teach Archiv", or typed selectors)
+//   2. user overrides (popup > "Teach Archiv AI", or typed selectors)
 //   3. auto-detect: a heuristic scan for user / AI turns by attribute names
 // `verified: true` is set only after a real-account test. None are verified yet.
 (function () {
@@ -137,7 +137,7 @@ CV.SITES = (CV.REGISTRY || []).map((r) => {
   };
 });
 
-// Adapter used when a site has no selectors of its own: auto-detect + Teach Archiv do the work.
+// Adapter used when a site has no selectors of its own: auto-detect + Teach Archiv AI do the work.
 function makeGeneric(reg) {
   const host = location.hostname.replace(/^www\./, '');
   let id, name;

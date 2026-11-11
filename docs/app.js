@@ -1,5 +1,5 @@
 (function () {
-  var repo = window.ARCHIV_REPO || 'socialmania99/archiv';
+  var repo = window.ARCHIV_AI_REPO || 'socialmania99/archiv-ai';
   var base = 'https://github.com/' + repo;
   document.querySelectorAll('[data-gh]').forEach(function (a) { a.href = base + a.getAttribute('data-gh'); a.target = '_blank'; a.rel = 'noopener'; });
   document.querySelectorAll('[data-repo]').forEach(function (s) { s.textContent = repo; });

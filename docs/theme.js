@@ -1,12 +1,13 @@
-// Light / dark switcher shared by every Archiv page. Classic script, loaded in <head>
+// Light / dark switcher shared by every Archiv AI page. Classic script, loaded in <head>
 // so the theme is applied before first paint.
 (function () {
-  const KEY = 'archivUi';
+  const KEY = 'archivAiUi';
+  const OLD_KEY = 'archivUi'; // key used before the rename to Archiv AI
   const root = document.documentElement;
   const sys = () => (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   const resolved = () => root.dataset.ui || sys();
   let pref = 'auto';
-  try { pref = localStorage.getItem(KEY) || 'auto'; } catch { /* storage blocked */ }
+  try { pref = localStorage.getItem(KEY) || localStorage.getItem(OLD_KEY) || 'auto'; } catch { /* storage blocked */ }
   function apply(p) {
     pref = p === 'light' || p === 'dark' ? p : 'auto';
     root.dataset.ui = pref === 'auto' ? sys() : pref;
@@ -47,5 +48,5 @@
     apply(pref);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount); else mount();
-  window.ArchivTheme = { apply, mount };
+  window.ArchivAiTheme = { apply, mount };
 })();

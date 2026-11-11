@@ -1,0 +1,13 @@
+153 of 239 without logo
+
+Chat assistants (7): YouChat, Chatsonic, LMArena (Chatbot Arena), Genspark AI Chat, GigaChat, HKChat, Kanana (formerly Kakao)
+Coding (17): Codeium, Tabnine Chat, Aider, Continue.dev, Open Interpreter, Pieces for Developers, Bito AI, Kito AI, Supermaven, CodiumAI, Double.bot, Anysphere, Refact.ai, Sweep AI, Devv AI, MutableAI, Blackbox AI
+Research (18): Elicit, Consensus, Scite.ai, ResearchRabbit, QuillBot, Liner, Felo AI, Comet (Browser Agent), Afforai, SciSpace, ChatDOC, PDF.ai, Humata AI, Explainpaper, Scholarcy, Genei, Keenious, Iris.ai
+Local and self-hosted (11): LibreChat, AnythingLLM, PrivateGPT, Text Generation WebUI (Oobabooga), Llamafile, KoboldCPP, Big-AGI, Jan AI, GPT4All, Msty, Amuse Wiki AI
+Writing (19): Jasper Chat, Copy.ai, Writesonic, Anyword, Rytr, TextCortex, Hypotenuse AI, Simplified AI, HIX.AI, Writer Corporate Chat, ContentShake, Frase.io, Surfer SEO AI, Wordtune, Sudowrite, Scalenut, Copysmith, Peppertype.ai, Smartwriter.ai
+Productivity (13): Flowise, Lindy, Superhuman AI, Julius AI, Quivr, Taskade AI, Sunsama AI, BeforeSunset AI, Motion AI, Hezel AI, Xembly, Fireflies.ai, Otter.ai
+Image (8): Leonardo.ai, Playground AI, NightCafe Creator, Artbreeder, Photoroom, Craiyon, Deep Dream Generator, VanceAI
+Video (12): HeyGen, Synthesia, Colossyan, InVideo AI, Gamma App, Napkin AI, Pictory, DeepBrain AI, Elai.io, D-ID Agents, Tavus, Higgsfield
+Audio (15): Murf AI, Adobe Podcast Enhance, Resemble.ai, Play.ht, Lovo.ai, Speechify, WellSaid Labs, Descript, Vapi.ai, Retell AI, Bland AI, Soundraw, F5-TTS, Bark, MusicGen (Audiocraft)
+Customer support (16): Intercom Fin, Ada, 1mind (formerly Drift), ServiceNow Now Assist, ManyChat, Typeface, Bold360, Flow XO, Hyro, MobileMonkey, Pandorabots, SmartLoop, Freshdesk Chatbot, Cresta AI, Gorgias AI, Yellow.ai
+Companions and learning (17): Character.ai, Replika, Kindroid, Nomi.ai, Candy AI, Lovescape, Nectar AI, Gay AI Boyfriend, Chai App, Paradot, AIDungeon, Inworld AI, Convai, Youper, Cleo, FitnessAI, ELSA Speak

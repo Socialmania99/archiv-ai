@@ -1,4 +1,4 @@
-/* Archiv site. System fonts only: no third-party requests. */
+/* Archiv AI site. System fonts only: no third-party requests. */
 :root {
   --bg: #fbfaf7; --bg2: #f3f0ea; --card: #ffffff; --ink: #17142b; --muted: #625f7a; --line: rgba(23, 20, 43, .12);
   --brand: #5b3df5; --brand2: #8b5cf6; --accent: #f59e0b; --ok: #059669;
@@ -26,7 +26,7 @@ h1, h2, h3 { line-height: 1.12; letter-spacing: -.02em; margin: 0; }
 /* header */
 .nav { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
 .nav .wrap { display: flex; align-items: center; gap: 26px; height: 66px; }
-.logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; color: var(--ink); text-decoration: none; letter-spacing: -.02em; }
+.logo { white-space: nowrap; flex: none; display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; color: var(--ink); text-decoration: none; letter-spacing: -.02em; }
 .logo img { width: 30px; height: 30px; border-radius: 8px; }
 .nav nav { display: flex; gap: 18px; margin-left: 14px; }
 .nav nav a { white-space: nowrap; color: var(--muted); text-decoration: none; font-weight: 600; font-size: 14.5px; }
@@ -194,3 +194,10 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; } 
 .bmc.sm .cup { font-size: 16px; }
 @media (prefers-reduced-motion: reduce) { .bmc, .bmc .cup { transition: none; } .bmc:hover, .bmc:hover .cup { transform: none; } }
 .supportbtns .bmc { min-width: 217px; justify-content: center; padding-top: 12px; padding-bottom: 12px; }
+
+/* the longer brand name needs the nav to collapse a little earlier */
+@media (max-width: 1180px) and (min-width: 1061px) { .nav .wrap { gap: 16px; } .nav nav { gap: 13px; margin-left: 4px; } .nav nav a { font-size: 13.5px; } }
+@media (max-width: 1060px) and (min-width: 761px) {
+  .nav nav { display: none; position: absolute; top: 66px; left: 0; right: 0; flex-direction: column; gap: 0; background: var(--bg); border-bottom: 1px solid var(--line); margin: 0; padding: 8px 24px 16px; }
+  .nav nav.open { display: flex; } .nav nav a { padding: 12px 0; font-size: 16px; } .menu-btn { display: grid; }
+}

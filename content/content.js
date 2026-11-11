@@ -1,8 +1,8 @@
 // Runs inside chat sites. Answers popup/command messages, scrolls to load the
 // full history, converts messages to Markdown and hands them to the export page.
 (function () {
-  if (globalThis.__archivLoaded) return; // static + on-demand injection can both run
-  globalThis.__archivLoaded = true;
+  if (globalThis.__archivAiLoaded) return; // static + on-demand injection can both run
+  globalThis.__archivAiLoaded = true;
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
   async function getOverrides() {
@@ -106,7 +106,7 @@
     return chrome.runtime.sendMessage({ type: 'open-export', payload });
   }
 
-  // ---------- "Teach Archiv": click one of your messages and one AI reply ----------
+  // ---------- "Teach Archiv AI": click one of your messages and one AI reply ----------
   let picking = false;
   function startPick() {
     if (picking) return;
@@ -190,7 +190,7 @@
         button{all:unset;cursor:pointer;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#8b5cf6,#6d4aff);color:#fff;box-shadow:0 8px 24px rgba(109,74,255,.45);font:700 11px system-ui,sans-serif;transition:transform .12s}
         button:hover{transform:scale(1.08)} button:focus-visible{outline:2px solid #fff;outline-offset:2px}
         svg{width:20px;height:20px}
-      </style><button title="Export this chat with Archiv" aria-label="Export this chat with Archiv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg></button>`;
+      </style><button title="Export this chat with Archiv AI" aria-label="Export this chat with Archiv AI"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg></button>`;
       root.querySelector('button').onclick = async () => {
         const b = root.querySelector('button'); b.style.opacity = '.6';
         try { await doExport(true); } finally { b.style.opacity = ''; }
