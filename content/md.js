@@ -2,6 +2,20 @@
 // fences, tables, links, images, blockquotes and KaTeX math.
 globalThis.CV = globalThis.CV || {};
 
+// Page furniture that is not part of the chat: copy-button labels, toasts, live regions, tooltips.
+const UI_ROLES = new Set(['button', 'status', 'alert', 'tooltip', 'toolbar', 'menu', 'menubar', 'dialog', 'alertdialog']);
+const UI_CLASS = /(^|[\s_-])(toast|snackbar|tooltip|sr-only|visually-hidden|copy-?(btn|button|code)|notification)([\s_-]|$)/i;
+function isUiChrome(n) {
+  const role = n.getAttribute && n.getAttribute('role');
+  if (role && UI_ROLES.has(role.toLowerCase())) return true;
+  const live = n.getAttribute && n.getAttribute('aria-live');
+  if (live && live !== 'off') return true;
+  const tid = (n.getAttribute && n.getAttribute('data-testid')) || '';
+  if (/toast|copy-turn|copy-button|snackbar/i.test(tid)) return true;
+  const cls = typeof n.className === 'string' ? n.className : '';
+  return !!cls && UI_CLASS.test(cls);
+}
+
 CV.toMarkdown = function (root) {
   const SKIP = new Set(['script', 'style', 'button', 'svg', 'noscript', 'textarea', 'input', 'select', 'canvas', 'video', 'audio', 'iframe', 'nav']);
   const BLOCK = new Set(['div', 'section', 'article', 'main', 'header', 'footer', 'aside', 'figure', 'figcaption', 'details', 'summary', 'dl', 'dt', 'dd']);
@@ -31,6 +45,7 @@ CV.toMarkdown = function (root) {
     }
     if (n.hidden || (n.style && n.style.display === 'none')) return '';
     if (n.classList && n.classList.contains('sr-only')) return '';
+    if (isUiChrome(n)) return '';
 
     switch (tag) {
       case 'h1': case 'h2': case 'h3': case 'h4': case 'h5': case 'h6': {
@@ -116,7 +131,7 @@ CV.toMarkdown = function (root) {
     }
   }
 
-  return collapse(walk(root, {}));
+  return CV.scrubUi(collapse(walk(root, {})));
 };
 
 // Collapse blank-line runs and trim line-end spaces OUTSIDE code fences.
@@ -137,3 +152,19 @@ function collapse(md) {
   }
   return out.join('\n').trim();
 }
+
+// Safety net for text that still carries copy-button feedback ("Copied to clipboard", "Failed to copy
+// to clipboard. Try again later.", "CopiedFailed to copyCopy"). Drops lines made up only of those
+// phrases; never touches text inside code fences. Also used on chats saved by older versions.
+const UI_NOISE = /(copied to clipboard|failed to copy to clipboard|failed to copy|try again later|copy to clipboard|copy code|copied|copy)[\s.!]*/gi;
+CV.scrubUi = function (md) {
+  if (!md) return md;
+  let inFence = false, fenceLen = 0;
+  return md.split('\n').filter((raw) => {
+    const m = raw.match(/^(`{3,})/);
+    if (!inFence && m) { inFence = true; fenceLen = m[1].length; return true; }
+    if (inFence) { if (m && m[1].length >= fenceLen && raw.trim() === m[1]) inFence = false; return true; }
+    const t = raw.trim();
+    return !(t && t.replace(UI_NOISE, '').trim() === '');
+  }).join('\n').replace(/\n{3,}/g, '\n\n').trim();
+};

@@ -314,6 +314,20 @@ t('branded pdf css', () => {
   assert.ok(!toHtmlDoc({ siteName: 'A', title: 'T', exportedAt: '2026-01-01', messages: [] }, [], { brand: true, theme: 'dark' }).includes('@top-left'), 'bleed themes skip margin boxes');
 });
 
+// ---- 23. copy-button / toast noise is removed from exported text
+{
+  await import('../content/md.js');
+  const s = globalThis.CV.scrubUi;
+  const dirty = 'Here is the answer.\n\nCopied to clipboardFailed to copy to clipboard. Try again later.\n\nCopiedFailed to copyCopy\n\nSecond paragraph.\n\n```js\nCopy\nconsole.log(1)\n```\n\nI will copy the file.';
+  const clean = s(dirty);
+  assert.ok(!/Copied|Failed to copy|Try again later/.test(clean.replace(/```[\s\S]*?```/g, '')), clean);
+  assert.ok(clean.includes('Here is the answer.') && clean.includes('Second paragraph.'), 'real text kept');
+  assert.ok(clean.includes('```js\nCopy\nconsole.log(1)\n```'), 'code fence untouched');
+  assert.ok(clean.includes('I will copy the file.'), 'sentence that mentions copy kept');
+  assert.equal(s(''), '');
+  n++; console.log('ok 23 ui noise scrub');
+}
+
 fs.mkdirSync('/tmp/cv-out', { recursive: true });
 const docx = toDocxBlob(conv, conv.messages, { font: 'Georgia', size: 12, color: '#222222', page: 'Letter', header: true });
 fs.writeFileSync('/tmp/cv-out/test.docx', Buffer.from(await docx.arrayBuffer()));
