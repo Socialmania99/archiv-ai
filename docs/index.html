@@ -12,6 +12,7 @@
 <link rel="icon" href="assets/favicon.png">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="switch.css">
+<link rel="stylesheet" href="cursor.css">
 <script src="theme.js"></script>
 </head>
 <body>
@@ -59,12 +60,9 @@
   <h2 class="sec-h">See Archiv AI in action</h2>
   <p class="sec-p">A two-minute walkthrough: download, install, export, library, dashboard, backup, Notion and more.</p>
   <div class="vid rv">
-    <button type="button" class="vplay" id="vplay" data-yt="EjymdaLmpWI" aria-label="Play the Archiv AI walkthrough video">
-      <img src="assets/video-poster.webp" alt="Archiv AI walkthrough video thumbnail" width="1280" height="720" loading="lazy">
-      <span class="vbtn" aria-hidden="true"><svg viewBox="0 0 24 24" width="34" height="34"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>
-    </button>
+    <iframe src="https://www.youtube-nocookie.com/embed/EjymdaLmpWI?rel=0" title="Archiv AI walkthrough video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
   </div>
-  <p class="shotcap">The video loads from YouTube only after you press play, so this page makes no outside request until then. <a href="https://youtu.be/EjymdaLmpWI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+  <p class="shotcap">Plays right here. The player loads from YouTube (privacy-enhanced mode) when you scroll to it. <a href="https://youtu.be/EjymdaLmpWI" target="_blank" rel="noopener">Watch on YouTube</a></p>
 </div></section>
 
 <section id="platforms" class="alt"><div class="wrap">
@@ -255,5 +253,6 @@ bash tools/build-store.sh
 </div></footer>
 <script src="config.js"></script>
 <script src="app.js"></script>
+<script src="cursor.js" defer></script>
 </body>
 </html>

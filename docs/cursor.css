@@ -1,0 +1,29 @@
+/* Archiv AI custom cursor: 3D purple arrow + hand, with glow. Fine pointers only. */
+.ac-cur,.ac-halo,.ac-ring{position:fixed;left:0;top:0;pointer-events:none;z-index:2147483647;opacity:0;will-change:transform}
+.ac-halo{width:70px;height:70px;margin:-35px 0 0 -35px;border-radius:50%;
+  background:radial-gradient(circle,rgba(167,139,250,.55) 0%,rgba(139,92,246,.28) 38%,rgba(139,92,246,0) 70%);
+  filter:blur(6px);transition:opacity .25s,width .25s,height .25s,margin .25s}
+.ac-cur{width:34px;height:44px;transition:opacity .2s}
+.ac-cur img{position:absolute;left:0;top:0;display:block;max-width:none;user-select:none;-webkit-user-drag:none;
+  filter:drop-shadow(0 0 4px rgba(167,139,250,.95)) drop-shadow(0 0 12px rgba(139,92,246,.75)) drop-shadow(0 4px 8px rgba(76,29,149,.35));
+  transition:opacity .12s,transform .15s}
+.ac-cur .ac-a{width:34px;height:44px;margin:0}
+.ac-cur .ac-h{width:34px;height:48px;opacity:0;transform:scale(.85)}
+.ac-on .ac-cur{opacity:1}
+.ac-on .ac-halo{opacity:1}
+.ac-hand .ac-a{opacity:0}
+.ac-hand .ac-h{opacity:1;transform:scale(1);animation:ac-pulse 1.6s ease-in-out infinite}
+.ac-hand .ac-halo{width:96px;height:96px;margin:-48px 0 0 -48px}
+.ac-down .ac-cur{transform-origin:0 0}
+.ac-down .ac-cur img{transform:scale(.88)}
+.ac-ring{width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;border:2px solid rgba(167,139,250,.9);box-shadow:0 0 14px rgba(139,92,246,.8)}
+.ac-ring.go{animation:ac-ring .55s ease-out}
+@keyframes ac-ring{0%{opacity:.9;transform:var(--t) scale(.6)}100%{opacity:0;transform:var(--t) scale(4)}}
+@keyframes ac-pulse{0%,100%{filter:drop-shadow(0 0 4px rgba(167,139,250,.95)) drop-shadow(0 0 12px rgba(139,92,246,.75)) drop-shadow(0 4px 8px rgba(76,29,149,.35))}
+  50%{filter:drop-shadow(0 0 6px rgba(196,181,253,1)) drop-shadow(0 0 20px rgba(139,92,246,.95)) drop-shadow(0 4px 8px rgba(76,29,149,.35))}}
+@media (hover:hover) and (pointer:fine){
+  html.ac-ready,html.ac-ready *{cursor:none!important}
+  html.ac-ready iframe,html.ac-ready input,html.ac-ready textarea,html.ac-ready select{cursor:auto!important}
+}
+@media (hover:none),(pointer:coarse){.ac-cur,.ac-halo,.ac-ring{display:none!important}}
+@media (prefers-reduced-motion:reduce){.ac-hand .ac-h{animation:none}.ac-ring{display:none}}
