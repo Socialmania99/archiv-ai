@@ -218,3 +218,9 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; } 
   .frame { margin-right: -100px; }
 }
 .frame img { display: block; width: 100%; height: auto; }
+/* hero window: vertically centred, rounded on all four corners, flat (it is interactive) */
+.hero { padding: 84px 0; }
+.herogrid { align-items: center; }
+.frame, .frame:hover { border-radius: 18px; margin-top: 0; transform: none; }
+.frame { box-shadow: 0 30px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.12); }
+@media (max-width: 1060px) { .hero { padding: 56px 0 48px; } .frame { margin-top: 36px; } }
