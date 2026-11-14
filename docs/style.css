@@ -211,3 +211,10 @@ footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; } 
 .vbtn svg { margin-left: 4px; }
 .vplay:hover .vbtn { transform: scale(1.08); }
 @media (prefers-reduced-motion: reduce) { .vbtn { transition: none; } }
+
+/* hero preview: +200px wider, animated feature tour */
+@media (min-width: 1061px) {
+  .herogrid { grid-template-columns: minmax(0, .85fr) minmax(0, 1.2fr); }
+  .frame { margin-right: -100px; }
+}
+.frame img { display: block; width: 100%; height: auto; }
