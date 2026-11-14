@@ -4,6 +4,11 @@ Export ChatGPT, Claude, Gemini and 230+ other AI chats to **PDF, Word, image, Ma
 
 **Website:** https://socialmania99.github.io/archiv-ai/ · **Privacy:** [docs/privacy.html](docs/privacy.html)
 
+## Watch the walkthrough
+[![Archiv AI walkthrough video: click to watch on YouTube](docs/assets/video-poster.jpg)](https://youtu.be/EjymdaLmpWI)
+
+▶ **[Watch on YouTube](https://youtu.be/EjymdaLmpWI)**: a two-minute tour of download, install, export, library, dashboard, backup and Notion. You can also play it embedded on the [website](https://socialmania99.github.io/archiv-ai/#video).
+
 ## Features
 - **One-tab Inbox.** "Export this chat" sends a *recent copy from <tool>* to a single Archiv AI tab. Preview, Save to vault, Export or Discard.
 - **Duplicate-aware saving.** Same chat again: identical copies are replaced; new messages are appended to the original and marked **Updated**.
