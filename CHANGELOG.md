@@ -108,6 +108,7 @@ node test/e2e-migrate.mjs
 Pro tier (cloud-free): unlimited PDF themes, branded headers. Branded PDF headers. Claude Artifacts export. Notion database mode.
 
 ## v0.6
+- Website and README: added the 2-minute walkthrough video. On the site it loads from YouTube (privacy-enhanced mode) only after you press play; the README shows a clickable thumbnail.
 
 - **One tab.** "Export this chat" sends the chat to the Archiv AI **Inbox** in the single Archiv AI tab (reused if open). Each entry is a "Recent copy from <tool>" with Save to vault, Export… or Discard.
 - **Duplicate detection.** Same chat (site + URL, or title when the URL is a site home) is recognised. Identical: the saved copy is replaced. New messages: the saved chat keeps its messages and the new ones are added, marked **Updated**. Diverged: content replaced, tags and folder kept.
