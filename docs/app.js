@@ -5,6 +5,21 @@
   document.querySelectorAll('[data-repo]').forEach(function (s) { s.textContent = repo; });
   var yr = document.getElementById('yr'); if (yr) yr.textContent = new Date().getFullYear();
 
+
+  // click-to-load YouTube video (no outside request until the visitor presses play)
+  var vp = document.getElementById('vplay');
+  if (vp) {
+    vp.addEventListener('click', function () {
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + vp.getAttribute('data-yt') + '?autoplay=1&rel=0&modestbranding=1';
+      f.title = 'Archiv AI walkthrough video';
+      f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen';
+      f.setAttribute('allowfullscreen', '');
+      f.referrerPolicy = 'strict-origin-when-cross-origin';
+      vp.parentNode.replaceChild(f, vp);
+    });
+  }
+
   // mobile menu
   var menu = document.getElementById('menu'), nav = document.getElementById('nav');
   if (menu) {
