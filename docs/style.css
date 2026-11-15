@@ -27,7 +27,7 @@ h1, h2, h3 { line-height: 1.12; letter-spacing: -.02em; margin: 0; }
 .nav { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
 .nav .wrap { display: flex; align-items: center; gap: 26px; height: 66px; }
 .logo { white-space: nowrap; flex: none; display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; color: var(--ink); text-decoration: none; letter-spacing: -.02em; }
-.logo img { width: 30px; height: 30px; border-radius: 8px; }
+.logo img { width: 36px; height: 36px; object-fit: contain; }
 .nav nav { display: flex; gap: 18px; margin-left: 14px; }
 .nav nav a { white-space: nowrap; color: var(--muted); text-decoration: none; font-weight: 600; font-size: 14.5px; }
 .nav nav a:hover { color: var(--ink); }

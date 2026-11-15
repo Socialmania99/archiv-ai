@@ -5,7 +5,7 @@
 .mk *{box-sizing:border-box}.mk button,.mk input,.mk select{font:inherit;color:inherit}
 .mk svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .mk .rail{background:var(--rail);border-radius:14px;display:flex;flex-direction:column;align-items:center;gap:8px;padding:10px 0;color:#b9b2ee}
-.mk .rail .lg{width:28px;height:28px;border-radius:9px;background:linear-gradient(135deg,#7c5cff,#5b3bff);display:grid;place-items:center;color:#fff;margin-bottom:6px}
+.mk .rail .lg{width:34px;height:34px;display:grid;place-items:center;margin-bottom:4px}.mk .rail .lg img{width:34px;height:34px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(139,92,246,.6))}
 .mk .rail button{width:32px;height:32px;border-radius:10px;border:0;background:none;display:grid;place-items:center;color:inherit;position:relative;transition:background .2s,color .2s}
 .mk .rail button:hover{background:rgba(255,255,255,.1);color:#fff}.mk .rail button.on{background:var(--pri2);color:#fff;box-shadow:0 4px 12px rgba(109,74,255,.5)}
 .mk .rail .dot{position:absolute;top:5px;right:5px;width:7px;height:7px;border-radius:50%;background:#ff5a6a}

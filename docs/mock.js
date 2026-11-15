@@ -42,7 +42,7 @@ function shell(){
  var rail=[['dash','grid'],['inbox','inbox'],['lib','doc'],['folders','folder'],['sites','globe'],['set','gear']].map(function(r){return '<button data-go="'+r[0]+'" class="'+(v===r[0]||(v==='export'&&r[0]===S.ex.src_rail)?'on':'')+'" aria-label="'+r[0]+'">'+I(r[1])+(r[0]==='inbox'&&inbox?'<span class="dot"></span>':'')+'</button>'}).join('');
  var sites=['ChatGPT','Claude','Gemini','Perplexity','DeepSeek'].map(function(s){return '<button class="it'+(v==='lib'&&S.site===s?' on':'')+'" data-site="'+s+'"><i class="sdot" style="background:'+COL[s]+'"></i>'+s+'<b>'+cnt(s)+'</b></button>'}).join('');
  var title={dash:'Dashboard',inbox:'Inbox',lib:'Library',folders:'Folders',sites:'Supported sites',set:'Settings',export:'Export'}[v];
- return '<div class="rail"><span class="lg">'+I('logo')+'</span>'+rail+'</div>'+
+ return '<div class="rail"><span class="lg"><img src="assets/logo.png" alt="" width="30" height="30"></span>'+rail+'</div>'+
  '<aside class="side"><h3>'+title+'</h3>'+
  '<button class="grp'+(S.open.ov?'':' shut')+'" data-open="ov">Overview'+I('chev')+'</button><div class="sub"'+(S.open.ov?'':' hidden')+'>'+nav('','grid','Overview','dash')+nav('','inbox','Inbox','inbox',inbox?1:null)+'</div>'+
  '<button class="grp'+(S.open.lib?'':' shut')+'" data-open="lib">Library'+I('chev')+'</button><div class="sub"'+(S.open.lib?'':' hidden')+'><button class="it'+(v==='lib'&&!S.site?' on':'')+'" data-site="">'+I('doc')+'All chats<b>'+chats.length+'</b></button>'+sites+'</div>'+
