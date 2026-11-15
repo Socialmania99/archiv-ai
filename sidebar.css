@@ -6,7 +6,7 @@
 .rl svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .rl:hover { background: rgba(255, 255, 255, .08); color: #fff; }
 .rl.active { background: linear-gradient(135deg, var(--brand2), var(--brand)); color: #fff; box-shadow: 0 6px 16px rgba(109, 74, 255, .45); }
-.rl.logo { margin-bottom: 10px; } .rl.logo img { width: 30px; height: 30px; }
+.rl.logo { margin-bottom: 10px; } .rl.logo img { width: 34px; height: 34px; object-fit: contain; }
 .rl .dot { position: absolute; top: 8px; right: 8px; width: 8px; height: 8px; border-radius: 50%; background: #fb7185; box-shadow: 0 0 0 2px #14112b; }
 
 .sb .panel { transition: width .25s cubic-bezier(.2, .7, .2, 1), opacity .18s ease, margin .25s ease, padding .25s ease; white-space: nowrap; width: 250px; margin-left: 10px; padding: 14px 12px; display: flex; flex-direction: column; gap: 6px; background: var(--panel-solid); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; }
