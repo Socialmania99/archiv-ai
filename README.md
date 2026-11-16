@@ -4,14 +4,14 @@
 
 Export ChatGPT, Claude, Gemini and 230+ other AI chats to **PDF, Word, image, Markdown, HTML, JSON, text, Notion and Obsidian**, and keep a private, searchable library on your own computer. No account, no server, no tracking.
 
-**Website:** https://socialmania99.github.io/archiv-ai/ · **Privacy:** [docs/privacy.html](docs/privacy.html)
+**Website:** https://www.socialmania99.com/archiv-ai/ · **Privacy:** [docs/privacy.html](docs/privacy.html)
 
 ## Watch the walkthrough
 <!-- INLINE PLAYER: in the GitHub editor, drag Archiv-AI-README-Video-under10MB.mp4 here. GitHub inserts a https://github.com/user-attachments/assets/... line. Keep that line, and delete the thumbnail below if you want only the player. -->
 
 [![Archiv AI walkthrough video: click to watch on YouTube](docs/assets/video-poster.jpg)](https://youtu.be/EjymdaLmpWI)
 
-▶ **[Watch in HD on YouTube](https://youtu.be/EjymdaLmpWI)**: a two-minute tour of download, install, export, library, dashboard, backup and Notion. The [website](https://socialmania99.github.io/archiv-ai/#video) also plays it in the page.
+▶ **[Watch in HD on YouTube](https://youtu.be/EjymdaLmpWI)**: a two-minute tour of download, install, export, library, dashboard, backup and Notion. The [website](https://www.socialmania99.com/archiv-ai/#video) also plays it in the page.
 
 ## Features
 - **One-tab Inbox.** "Export this chat" sends a *recent copy from <tool>* to a single Archiv AI tab. Preview, Save to vault, Export or Discard.
