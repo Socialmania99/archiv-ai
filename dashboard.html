@@ -166,6 +166,7 @@
           <div class="row" style="margin-top:8px"><button class="primary" id="nSave">Connect and test</button><button id="nClear">Disconnect</button></div>
           <div class="muted small" id="nStatus" role="status"></div></div>
         <div class="card glass-in"><h3>In-page button</h3><p class="muted">The small round Export button Archiv AI adds to known AI sites.</p><label class="inline"><input type="checkbox" id="floatBtn"> Show it on AI sites</label></div>
+        <div class="card glass-in"><h3>Token meter</h3><p class="muted">A small live gauge on chat pages showing about how many tokens the chat uses and how much of the model's context window is left. Counts are estimates.</p><label class="inline"><input type="checkbox" id="meterOn"> Show it on known AI sites</label><label for="meterDef" class="muted small">Default context window (when a model is not detected)</label><select id="meterDef"></select><div class="muted small">On any other site, open the Archiv AI popup and press Live meter on page.</div></div>
         <div class="card glass-in"><h3>Selector fixes</h3><p class="muted">Custom selectors you saved from the popup.</p><div id="overrides"></div></div>
         <div class="card glass-in" id="aboutCard"><h3>About &amp; support</h3>
           <p class="muted">Archiv AI is free, open source and made by one person. If it saves you time, you can support it.</p>
@@ -180,6 +181,7 @@
 <div class="toast" id="toast"></div>
 <script src="content/md.js"></script>
   <script src="content/registry.js"></script>
+  <script src="content/tokens.js"></script>
 <script src="content/adapters.js"></script>
 <script src="content/icon-map.js"></script>
 <script type="module" src="dashboard.js"></script>

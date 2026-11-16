@@ -31,3 +31,17 @@ textarea { min-height: 42px; font-family: ui-monospace, Menlo, monospace; font-s
 .avatar.logo { box-shadow: 0 0 0 2px rgba(255,255,255,.5); } .avatar.logo img { width: 24px; height: 24px; object-fit: contain; }
 
 .foot { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; } .foot > a:last-child { color: var(--muted); font-size: 12px; font-weight: 600; text-decoration: none; } .foot > a:last-child:hover { color: var(--brand); }
+
+/* token + context meter */
+.meter { border: 1px solid var(--line); border-radius: 16px; padding: 10px 12px; margin: 0 0 10px; background: var(--panel-solid, #fff); }
+.meter[hidden] { display: none; }
+.mtop { display: flex; justify-content: space-between; font-size: 11px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.mrow { display: flex; align-items: baseline; gap: 6px; margin-top: 2px; }
+.mrow b { font-size: 22px; letter-spacing: -.02em; }
+.mrow .muted, .msub { font-size: 11px; color: var(--muted); }
+.mbar { height: 8px; border-radius: 9px; background: color-mix(in srgb, var(--muted) 22%, transparent); overflow: hidden; margin: 6px 0; }
+.mbar i { display: block; height: 100%; width: 0; border-radius: 9px; background: var(--mc, #10b981); transition: width .4s, background .3s; }
+.msub { display: flex; justify-content: space-between; gap: 8px; }
+.mctl { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin-top: 8px; }
+.mctl select { padding: 5px 8px; font-size: 12px; }
+.mctl button { padding: 5px 10px; font-size: 12px; white-space: nowrap; }

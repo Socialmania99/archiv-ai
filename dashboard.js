@@ -229,7 +229,7 @@ function renderBars(el, values, unit) {
   el.onkeydown = (e) => { if (e.key === 'Escape') { hide(); e.target.blur?.(); } };
 }
 function deltaHtml(n, unit) {
-  return n > 0 ? `<span class="delta up">+${compact(n)} ${unit} this week</span>` : `<span class="delta flat">no new ${unit} this week</span>`;
+  return n > 0 ? `<span class="delta up">+${compact(n)} this week</span>` : `<span class="delta flat">none this week</span>`;
 }
 
 function lineChart(series) {
@@ -417,6 +417,13 @@ async function renderSettings() {
   const { floatBtn } = await chrome.storage.sync.get('floatBtn');
   $('floatBtn').checked = floatBtn !== false;
   $('floatBtn').onchange = () => chrome.storage.sync.set({ floatBtn: $('floatBtn').checked });
+  const mc = await chrome.storage.sync.get(['meter', 'meterDefault']);
+  $('meterOn').checked = mc.meter !== false;
+  $('meterOn').onchange = () => chrome.storage.sync.set({ meter: $('meterOn').checked });
+  const md = $('meterDef');
+  if (!md.options.length) CV.WINDOW_CHOICES.forEach(([v, l]) => { const op = document.createElement('option'); op.value = v; op.textContent = v ? l + ' tokens' : 'Auto (detect)'; md.append(op); });
+  md.value = String(mc.meterDefault || 0);
+  md.onchange = () => chrome.storage.sync.set({ meterDefault: +md.value });
   const { selectorOverrides } = await chrome.storage.sync.get('selectorOverrides');
   const o = selectorOverrides || {};
   const ids = Object.keys(o);

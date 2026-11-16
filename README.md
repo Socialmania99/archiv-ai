@@ -19,6 +19,7 @@ Export ChatGPT, Claude, Gemini and 230+ other AI chats to **PDF, Word, image, Ma
 - **Topic tags.** Up to four suggested tags per chat, editable.
 - **Nine formats** from one menu, message selection, redaction of keys/tokens/emails/phones, themed and branded PDF.
 - **Notion** (pages or database rows) and **Obsidian** (notes with frontmatter, callouts, ZIP per folder).
+- **Token and context meter.** A small live gauge on chat pages (and in the popup) shows about how many tokens a chat uses and how much of the model's context window is left. It reads the page's model name where it can, works on every site Archiv AI can read, and the window size can be set per site. Counts are estimates (about ±15%).
 - **Library** with search, folders, tags, find-in-chat, backup/import, activity dashboard, light/dark, collapsible sidebar.
 - **Platforms:** 239-tool directory (225 with logos), 15 hand-written adapters, auto-detect for any chat page, and Teach Archiv AI. Claude artifacts are appended (beta).
 

@@ -7,7 +7,7 @@
 |---|---|
 | Category | Productivity |
 | Language | English |
-| Version | 0.6.0 |
+| Version | 1.0.5 |
 | Price | Free |
 
 ## Short description (max 132 characters)

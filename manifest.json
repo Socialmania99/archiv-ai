@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Archiv AI: Chat Exporter & Library",
-  "version": "0.6.0",
+  "version": "1.0.5",
   "description": "Save AI chats as PDF, Word, PNG, Markdown, Notion or Obsidian. Private and on-device. Works on any chat page.",
   "minimum_chrome_version": "110",
   "action": {
@@ -78,6 +78,7 @@
       ],
       "js": [
         "content/registry.js",
+        "content/tokens.js",
         "content/adapters.js",
         "content/md.js",
         "content/content.js"

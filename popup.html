@@ -31,6 +31,14 @@
 
   <p id="status" class="note" role="status"></p>
 
+  <section class="meter" id="meter" hidden>
+    <div class="mtop"><span class="mlbl">Context used</span><span class="mpct" id="mPct"></span></div>
+    <div class="mrow"><b id="mTok">~0</b><span id="mOf" class="muted"></span></div>
+    <div class="mbar"><i id="mFill"></i></div>
+    <div class="msub"><span id="mSrc"></span><span id="mLeft"></span></div>
+    <div class="mctl"><select id="mWin" aria-label="Context window size"></select><button id="mShow" title="Adds a small live meter to the page you are on">Live meter on page</button></div>
+  </section>
+
   <button id="export" class="primary big" disabled>Export this chat</button>
   <label class="inline"><input type="checkbox" id="autoload" checked> Load full history first (scrolls up)</label>
 
@@ -53,6 +61,7 @@
   <div class="foot"><a class="bmc sm" href="https://www.buymeacoffee.com/Socialmania99" target="_blank" rel="noopener"><span class="cup" aria-hidden="true">☕</span>Buy me a coffee</a><a href="https://github.com/socialmania99/archiv-ai" target="_blank" rel="noopener">GitHub</a></div>
   <div class="kbd">Alt+Shift+E · or right-click the page › Export this chat</div>
   <script src="content/icon-map.js"></script>
+  <script src="content/tokens.js"></script>
   <script type="module" src="popup.js"></script>
 </body>
 </html>

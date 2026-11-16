@@ -333,4 +333,24 @@ const docx = toDocxBlob(conv, conv.messages, { font: 'Georgia', size: 12, color:
 fs.writeFileSync('/tmp/cv-out/test.docx', Buffer.from(await docx.arrayBuffer()));
 fs.writeFileSync('/tmp/cv-out/test.zip', Buffer.from(await zip([{ name: 'a/b.md', data: 'héllo' }, { name: 'c.txt', data: 'x'.repeat(5000) }]).arrayBuffer()));
 fs.writeFileSync('/tmp/cv-out/test.html', toHtmlDoc(conv, conv.messages));
+// token + context meter math
+await import('../content/tokens.js');
+{
+  const C = globalThis.CV;
+  assert.equal(C.estimateTokens(''), 0);
+  assert.ok(C.estimateTokens('Hello world') >= 2 && C.estimateTokens('Hello world') <= 3);
+  const t = C.estimateTokens('The quick brown fox jumps over the lazy dog.'); assert.ok(t >= 9 && t <= 13, 'sentence ' + t);
+  assert.ok(C.estimateTokens('你好世界，这是一个测试') >= 8);
+  assert.equal(C.matchModel('Claude Sonnet 4.6').window, 1000000);
+  assert.equal(C.matchModel('Claude Sonnet 4.5').window, 200000);
+  assert.equal(C.matchModel('GPT-4o').window, 128000);
+  assert.equal(C.matchModel('Maths - Genspark AI Chat'), null);
+  assert.equal(C.resolveWindow({ siteId: 'x', modelText: '' }).window, 128000);
+  assert.equal(C.resolveWindow({ siteId: 'claude', modelText: '' }).window, 200000);
+  assert.equal(C.resolveWindow({ siteId: 'claude', modelText: 'GPT-4o', userSite: 5000 }).window, 5000);
+  const m = C.meterStats([{ role: 'user', text: 'hi' }, { role: 'assistant', text: 'hello there' }], 100); assert.equal(m.count, 2); assert.equal(m.level, 'green');
+  assert.equal(C.meterStats([{ role: 'user', text: 'word '.repeat(95) }], 100).level, 'red');
+  assert.equal(C.compactNum(128000), '128K'); assert.equal(C.compactNum(1048576), '1M');
+  n++;
+}
 console.log(`\n${n} unit groups passed`);

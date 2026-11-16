@@ -167,9 +167,141 @@
     document.addEventListener('keydown', key, true);
   }
 
+
+  // ---------- token + context meter (works on every page the content script runs on) ----------
+  function pageModelText() {
+    const out = [document.title];
+    try {
+      const els = document.querySelectorAll('button,[role="combobox"],[aria-haspopup],[data-testid*="model" i],[class*="model" i],header h1,header h2,header span');
+      let n = 0;
+      for (const el of els) {
+        if (++n > 500) break;
+        const t = (el.innerText || el.textContent || '').trim();
+        if (t.length >= 2 && t.length <= 48) out.push(t);
+      }
+    } catch { /* ignore */ }
+    return out.join(' | ');
+  }
+
+  async function readMeter() {
+    const adapter = CV.currentAdapter();
+    if (!adapter) return null;
+    const overrides = await getOverrides();
+    let found = CV.findMessages(adapter, overrides);
+    if (!found.length) found = CV.heuristicMessages();
+    const msgs = found.map((m) => ({ role: m.role, text: m.el.innerText || m.el.textContent || '' }));
+    const cfg = await chrome.storage.sync.get(['meterLimits', 'meterDefault']);
+    const userSite = (cfg.meterLimits || {})[adapter.id] || 0;
+    const w = CV.resolveWindow({ siteId: adapter.id, modelText: pageModelText(), userSite, userDefault: cfg.meterDefault || 0 });
+    return { site: adapter.id, siteName: adapter.name, ...CV.meterStats(msgs, w.window), source: w.source, model: w.label, userSite };
+  }
+
+  let meterUI = null;
+  function mountMeter() {
+    if (meterUI) return meterUI;
+    const host = document.createElement('div');
+    host.style.cssText = 'all:initial;position:fixed;right:18px;bottom:148px;z-index:2147483645;display:none';
+    const root = host.attachShadow({ mode: 'closed' });
+    root.innerHTML = `<style>
+      *{box-sizing:border-box} .chip{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:8px;background:#1c1b2e;color:#fff;font:600 12px system-ui,sans-serif;padding:5px 12px 5px 5px;border-radius:99px;box-shadow:0 8px 24px rgba(20,10,60,.35),0 0 0 1px rgba(255,255,255,.12)}
+      .chip:focus-visible{outline:2px solid #a78bfa;outline-offset:2px}
+      .ring{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--c,#34d399) calc(var(--p,0)*1%),rgba(255,255,255,.18) 0)}
+      .ring::after{content:"";width:18px;height:18px;border-radius:50%;background:#1c1b2e}
+      .pn{position:absolute;right:0;bottom:44px;width:268px;background:#1c1b2e;color:#fff;border-radius:16px;padding:14px;font:12px/1.45 system-ui,sans-serif;box-shadow:0 16px 48px rgba(20,10,60,.5),0 0 0 1px rgba(255,255,255,.12);display:none}
+      .pn.open{display:block} h4{margin:0 0 2px;font-size:11px;letter-spacing:.06em;color:#c4b5fd;text-transform:uppercase}
+      .big{font-size:22px;font-weight:800;letter-spacing:-.02em} .big small{font-size:12px;font-weight:600;opacity:.7}
+      .bar{height:8px;border-radius:9px;background:rgba(255,255,255,.14);overflow:hidden;margin:8px 0} .bar i{display:block;height:100%;width:0;border-radius:9px;background:var(--c,#34d399);transition:width .4s}
+      .r{display:flex;justify-content:space-between;padding:3px 0;opacity:.9} .r b{font-weight:700}
+      select{font:inherit;width:100%;margin-top:6px;background:#2a2850;color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:9px;padding:5px 8px}
+      .src{opacity:.65;font-size:11px;margin-top:4px} .note{opacity:.55;font-size:10.5px;margin-top:8px}
+      .acts{display:flex;gap:6px;margin-top:10px} .acts button{all:unset;cursor:pointer;flex:1;text-align:center;padding:6px;border-radius:9px;background:#2a2850;font-weight:600;font-size:11px} .acts button:hover{background:#3a3768}
+      .warn{margin-top:8px;padding:6px 8px;border-radius:9px;background:rgba(248,113,113,.18);color:#fecaca;display:none} .warn.on{display:block}
+    </style><div class="pn" id="pn"><h4>Context used</h4><div class="big"><span id="big"></span> <small id="of"></small></div><div class="bar"><i id="fill"></i></div>
+      <div class="r"><span>Your messages</span><b id="you"></b></div><div class="r"><span>AI replies</span><b id="ai"></b></div><div class="r"><span>Messages</span><b id="cnt"></b></div><div class="r"><span>Room left</span><b id="left"></b></div>
+      <div class="warn" id="warn">Getting full. Start a new chat soon, or summarize this one first.</div>
+      <label class="src" id="src" style="display:block"></label><select id="win" aria-label="Context window size"></select>
+      <div class="note">Estimate (about ±15%). The AI's own count can differ, and chat apps may cap below the model limit. Pick a size if this one looks wrong.</div>
+      <div class="acts"><button id="off">Hide on this site</button><button id="close">Close</button></div></div>
+      <button class="chip" id="chip" aria-label="Token and context meter" aria-expanded="false"><span class="ring" id="ring"></span><span id="lbl">…</span></button>`;
+    const $ = (id) => root.getElementById ? root.getElementById(id) : root.querySelector('#' + id);
+    const sel = $('win');
+    CV.WINDOW_CHOICES.forEach(([v, l]) => { const o = document.createElement('option'); o.value = v; o.textContent = v ? l + ' tokens' : 'Auto (detect)'; sel.append(o); });
+    document.documentElement.appendChild(host);
+    const ui = meterUI = { host, root, $, last: null, forced: false };
+    const toggle = (open) => { $('pn').classList.toggle('open', open); $('chip').setAttribute('aria-expanded', String(open)); };
+    $('chip').onclick = () => toggle(!$('pn').classList.contains('open'));
+    $('close').onclick = () => toggle(false);
+    sel.onchange = async () => {
+      const { meterLimits } = await chrome.storage.sync.get('meterLimits');
+      const all = meterLimits || {};
+      if (+sel.value) all[ui.last.site] = +sel.value; else delete all[ui.last.site];
+      await chrome.storage.sync.set({ meterLimits: all });
+      updateMeter();
+    };
+    $('off').onclick = async () => {
+      const { meterOff } = await chrome.storage.sync.get('meterOff');
+      const all = meterOff || {}; all[ui.last.site] = true;
+      await chrome.storage.sync.set({ meterOff: all });
+      host.style.display = 'none'; ui.hidden = true;
+    };
+    return ui;
+  }
+
+  async function updateMeter() {
+    const ui = meterUI; if (!ui) return;
+    let d = null;
+    try { d = await readMeter(); } catch { return; }
+    if (!d || !d.count) { ui.host.style.display = 'none'; return; }
+    ui.last = d; ui.host.style.display = 'block';
+    const c = { green: '#34d399', amber: '#fbbf24', red: '#f87171' }[d.level];
+    ui.host.style.setProperty('--c', c);
+    const r = ui.root, $ = ui.$, K = CV.compactNum;
+    $('ring').style.cssText = `--p:${Math.min(100, d.pct)};--c:${c}`;
+    $('fill').style.cssText = `width:${Math.min(100, d.pct)}%;--c:${c}`;
+    $('lbl').textContent = `${K(d.total)} / ${K(d.window)}`;
+    $('big').textContent = '~' + K(d.total); $('of').textContent = `of ${K(d.window)} tokens · ${d.pct < 1 ? '<1' : Math.round(d.pct)}%`;
+    $('you').textContent = '~' + K(d.you); $('ai').textContent = '~' + K(d.ai); $('cnt').textContent = d.count;
+    $('left').textContent = `~${K(d.left)} (about ${d.turnsLeft} more ${d.turnsLeft === 1 ? 'exchange' : 'exchanges'})`;
+    $('warn').classList.toggle('on', d.level !== 'green');
+    $('src').textContent = d.source + (d.model ? ': ' + d.model : '') + ` · ${K(d.window)}`;
+    const wsel = $('win');
+    [...wsel.options].forEach((o) => { if (o.dataset.custom) o.remove(); });
+    if (d.userSite && !CV.WINDOW_CHOICES.some((x) => x[0] === d.userSite)) { const o = document.createElement('option'); o.value = d.userSite; o.dataset.custom = '1'; o.textContent = K(d.userSite) + ' tokens (custom)'; wsel.append(o); }
+    wsel.value = String(d.userSite || 0);
+  }
+
+  let meterTimer = null, meterWatching = false;
+  function watchMeter() {
+    if (meterWatching) return; meterWatching = true;
+    const kick = () => { if (!meterTimer) meterTimer = setTimeout(() => { meterTimer = null; if (!document.hidden && meterUI && !meterUI.hidden) updateMeter(); }, 2000); };
+    new MutationObserver(kick).observe(document.body, { childList: true, subtree: true, characterData: true });
+    document.addEventListener('visibilitychange', kick);
+  }
+  /** Show the meter on this page now (any site). */
+  async function showMeter() {
+    const ui = mountMeter(); ui.hidden = false; watchMeter();
+    const { meterOff } = await chrome.storage.sync.get('meterOff');
+    const a = CV.currentAdapter();
+    if (meterOff && a && meterOff[a.id]) { delete meterOff[a.id]; await chrome.storage.sync.set({ meterOff }); }
+    await updateMeter();
+    return { ok: !!ui.last };
+  }
+  async function initMeter() {
+    try {
+      if (!CV.isKnownSite()) return;                       // other pages: on demand from the popup
+      const cfg = await chrome.storage.sync.get(['meter', 'meterOff']);
+      const a = CV.currentAdapter();
+      if (cfg.meter === false || (cfg.meterOff || {})[a.id]) return;
+      mountMeter(); watchMeter(); updateMeter();
+      chrome.storage.onChanged.addListener((ch) => { if (ch.meter && ch.meter.newValue === false && meterUI) meterUI.host.style.display = 'none'; });
+    } catch { /* extension context gone */ }
+  }
+
   chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
     if (msg.type === 'pick') { startPick(); sendResponse({ ok: true }); return false; }
     if (msg.type === 'scan') { scan().then(sendResponse); return true; }
+    if (msg.type === 'meter') { readMeter().then(sendResponse).catch(() => sendResponse(null)); return true; }
+    if (msg.type === 'meter-show') { showMeter().then(sendResponse).catch(() => sendResponse({ ok: false })); return true; }
     if (msg.type === 'export') {
       doExport(msg.autoload !== false).then(sendResponse).catch((e) => sendResponse({ ok: false, error: String(e) }));
       return true;
@@ -206,4 +338,5 @@
     } catch { /* extension context gone (reloaded): do nothing */ }
   }
   initFloat();
+  initMeter();
 })();

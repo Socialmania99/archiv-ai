@@ -51,6 +51,7 @@ async function scan() {
   } else status.textContent = '';
   $('export').disabled = false;
   $('teach').disabled = false;
+  loadMeter().catch(() => { $('meter').hidden = true; });
   const { selectorOverrides } = await chrome.storage.sync.get('selectorOverrides');
   const o = (selectorOverrides || {})[site] || {};
   $('selUser').value = o.user || '';
@@ -95,3 +96,36 @@ $('resetSel').onclick = async () => {
 };
 
 scan().catch(() => setIdle('Something went wrong', 'Reload the tab and open Archiv AI again.'));
+
+// ---------- token + context meter ----------
+const LEVEL = { green: '#10b981', amber: '#f59e0b', red: '#ef4444' };
+async function loadMeter() {
+  const m = await sendToTab(tab.id, tab.url, { type: 'meter' });
+  const box = $('meter');
+  if (!m || !m.count) { box.hidden = true; return; }
+  const K = CV.compactNum;
+  box.hidden = false;
+  $('mTok').textContent = '~' + K(m.total);
+  $('mOf').textContent = `of ${K(m.window)} tokens`;
+  $('mPct').textContent = (m.pct < 1 ? '<1' : Math.round(m.pct)) + '%';
+  $('mFill').style.width = Math.min(100, m.pct) + '%';
+  box.style.setProperty('--mc', LEVEL[m.level]);
+  $('mSrc').textContent = m.source + (m.model ? ': ' + m.model : '');
+  $('mLeft').textContent = `~${K(m.left)} left`;
+  const sel = $('mWin');
+  if (!sel.options.length) CV.WINDOW_CHOICES.forEach(([v, l]) => { const o = document.createElement('option'); o.value = v; o.textContent = v ? l + ' tokens' : 'Auto window'; sel.append(o); });
+  [...sel.options].forEach((o) => { if (o.dataset.custom) o.remove(); });
+  if (m.userSite && !CV.WINDOW_CHOICES.some((x) => x[0] === m.userSite)) { const o = document.createElement('option'); o.value = m.userSite; o.dataset.custom = '1'; o.textContent = K(m.userSite) + ' tokens (custom)'; sel.append(o); }
+  sel.value = String(m.userSite || 0);
+  sel.onchange = async () => {
+    const { meterLimits } = await chrome.storage.sync.get('meterLimits');
+    const all = meterLimits || {};
+    if (+sel.value) all[m.site] = +sel.value; else delete all[m.site];
+    await chrome.storage.sync.set({ meterLimits: all });
+    loadMeter();
+  };
+  $('mShow').onclick = async () => {
+    try { await sendToTab(tab.id, tab.url, { type: 'meter-show' }); window.close(); }
+    catch { $('status').textContent = 'Could not add the live meter to this tab. Reload it and try again.'; }
+  };
+}
